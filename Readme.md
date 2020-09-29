@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Виталий  Крашенинников](https://up.htmlacademy.ru/react/5/user/101534).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Овчинников](https://htmlacademy.ru/profile/id193375).
 
 ---
 
