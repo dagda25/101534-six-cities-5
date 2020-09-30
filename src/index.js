@@ -2,8 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
 
+const Settings = {
+  OFFER_COUNT: 312
+};
+
 ReactDOM.render(
-    <App>
+    <App offerCount={Settings.OFFER_COUNT}>
 
     </App>,
     document.querySelector(`#root`)
