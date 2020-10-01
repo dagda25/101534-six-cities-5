@@ -7,8 +7,6 @@ const Settings = {
 };
 
 ReactDOM.render(
-    <App offerCount={Settings.OFFER_COUNT}>
-
-    </App>,
+    <App offerCount={Settings.OFFER_COUNT}/>,
     document.querySelector(`#root`)
 );
