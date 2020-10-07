@@ -8,12 +8,12 @@ import OfferPage from "../offer-page/offer-page";
 
 
 const App = (props) => {
-  const {offerCount} = props;
+  const {offerCount, offers} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <MainPage offerCount={offerCount} />
+          <MainPage offerCount={offerCount} offers={offers}/>
         </Route>
         <Route exact path="/login">
           <LoginPage />

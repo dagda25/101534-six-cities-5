@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = (props) => {
-  const {offers} = props;
-  const {name, mark, images, price, rating, type} = offers;
+  const {offer, handleMouseOver, handleMouseOut} = props;
+  const {name, mark, images, price, rating, type, id} = offer;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" data-id={id} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <div className="place-card__mark">
         <span>{mark}</span>
       </div>
@@ -30,7 +30,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style="width: 80%"></span>
+            <span style={{width: `80%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -44,7 +44,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  offers: PropTypes.shape(
+  offer: PropTypes.shape(
       {
         name: PropTypes.string.isRequired,
         images: PropTypes.array.isRequired,
@@ -52,8 +52,12 @@ OfferCard.propTypes = {
         rating: PropTypes.number.isRequired,
         type: PropTypes.string.isRequired,
         mark: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
       }
-  )
+  ),
+  handleMouseOver: PropTypes.func.isRequired,
+  handleMouseOut: PropTypes.func.isRequired,
 };
+
 
 export default OfferCard;
