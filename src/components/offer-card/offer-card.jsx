@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const OfferCard = (props) => {
   const {offer, handleMouseOver, handleMouseOut} = props;
-  const {name, mark, images, price, rating, type, id} = offer;
+  const {name, mark, images, price, type, id} = offer;
 
   return (
     <article className="cities__place-card place-card" data-id={id} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
@@ -55,8 +55,8 @@ OfferCard.propTypes = {
         id: PropTypes.number.isRequired,
       }
   ),
-  handleMouseOver: PropTypes.func.isRequired,
-  handleMouseOut: PropTypes.func.isRequired,
+  handleMouseOver: PropTypes.func,
+  handleMouseOut: PropTypes.func,
 };
 
 

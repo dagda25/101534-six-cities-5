@@ -1,7 +1,8 @@
 export default [
   {
     id: 1,
-    name: `Beautiful &amp; luxurious studio at great location`,
+    name: `Beautiful & luxurious studio at great location`,
+    location: `Amsterdam`,
     mark: `Premium`,
     rating: 4.8,
     type: `Apartment`,
@@ -37,7 +38,8 @@ export default [
   },
   {
     id: 2,
-    name: `Beautiful &amp; luxurious studio at great location`,
+    name: `Beautiful & luxurious studio at great location`,
+    location: `Amsterdam`,
     mark: `Premium`,
     rating: 4.8,
     type: `Apartment`,
@@ -73,7 +75,8 @@ export default [
   },
   {
     id: 3,
-    name: `Beautiful &amp; luxurious studio at great location`,
+    name: `Beautiful & luxurious studio at great location`,
+    location: `Cologne`,
     mark: `Premium`,
     rating: 4.8,
     type: `Apartment`,
@@ -109,7 +112,8 @@ export default [
   },
   {
     id: 4,
-    name: `Beautiful &amp; luxurious studio at great location`,
+    name: `Beautiful & luxurious studio at great location`,
+    location: `Cologne`,
     mark: `Premium`,
     rating: 4.8,
     type: `Apartment`,
