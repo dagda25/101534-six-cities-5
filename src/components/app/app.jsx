@@ -12,15 +12,34 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <MainPage offerCount={offerCount} offers={offers}/>
-        </Route>
+        <Route
+          exact path="/"
+          render={({history}) => (
+            <MainPage
+              offerCount={offerCount}
+              offers={offers}
+              onCardClick={(e) => {
+                e.preventDefault();
+                history.push(`/offer`);
+              }}
+            />
+          )}
+        />
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <Route exact path="/favorites">
-          <FavoritesPage offers={offers}/>
-        </Route>
+        <Route
+          exact path="/favorites"
+          render={({history}) => (
+            <FavoritesPage
+              offers={offers}
+              onCardClick={(e) => {
+                e.preventDefault();
+                history.push(`/offer`);
+              }}
+            />
+          )}
+        />
         <Route exact path="/offer/:id?">
           <OfferPage offers={offers} reviews={reviews}/>
         </Route>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OffersList from "../offers-list/offers-list";
 
 const MainPage = (props) => {
-  const {offerCount, offers} = props;
+  const {offerCount, offers, onCardClick} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -70,7 +70,7 @@ const MainPage = (props) => {
                 <option className="places__option" value="top-rated">Top rated first</option>
               </select>
             </form>
-            <OffersList offers={offers}/>
+            <OffersList offers={offers} onCardClick={onCardClick}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
@@ -86,4 +86,5 @@ export default MainPage;
 MainPage.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };

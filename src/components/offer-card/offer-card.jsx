@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const OfferCard = (props) => {
-  const {offer, handleMouseOver, handleMouseOut} = props;
+  const {offer, handleMouseOver, handleMouseOut, onCardClick} = props;
   const {name, mark, images, price, type, id} = offer;
 
   return (
@@ -11,7 +11,7 @@ const OfferCard = (props) => {
         <span>{mark}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a href="#" onClick={onCardClick}>
           <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
         </a>
       </div>
@@ -35,7 +35,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#" onClick={(e) => onCardClick(e)}>{name}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -57,6 +57,7 @@ OfferCard.propTypes = {
   ),
   handleMouseOver: PropTypes.func,
   handleMouseOut: PropTypes.func,
+  onCardClick: PropTypes.func,
 };
 
 
