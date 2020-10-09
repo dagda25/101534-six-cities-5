@@ -18,8 +18,7 @@ const App = (props) => {
             <MainPage
               offerCount={offerCount}
               offers={offers}
-              onCardClick={(e) => {
-                e.preventDefault();
+              onCardClick={() => {
                 history.push(`/offer`);
               }}
             />
@@ -33,16 +32,23 @@ const App = (props) => {
           render={({history}) => (
             <FavoritesPage
               offers={offers}
-              onCardClick={(e) => {
-                e.preventDefault();
+              onCardClick={() => {
                 history.push(`/offer`);
               }}
             />
           )}
         />
-        <Route exact path="/offer/:id?">
-          <OfferPage offers={offers} reviews={reviews}/>
-        </Route>
+        <Route exact path="/offer/:id?"
+          render={({match}) => {
+            const {id} = match.params;
+            return (
+              <OfferPage
+                offer={offers.find((item) => item.id === Number(id))}
+                offers={offers}
+                reviews={reviews}
+              />
+            );
+          }} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 const OfferCard = (props) => {
-  const {offer, handleMouseOver, handleMouseOut, onCardClick} = props;
+  const {offer, handleMouseOver, handleMouseOut} = props;
   const {name, mark, images, price, type, id} = offer;
 
   return (
@@ -11,9 +12,9 @@ const OfferCard = (props) => {
         <span>{mark}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#" onClick={onCardClick}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -35,7 +36,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#" onClick={(e) => onCardClick(e)}>{name}</a>
+          <Link to={`/offer/${id}`}>{name}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
