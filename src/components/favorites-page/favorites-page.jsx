@@ -4,7 +4,7 @@ import OfferCard from "../offer-card/offer-card";
 import Header from "../header/header";
 
 const FavoritesPage = (props) => {
-  const {onCardClick, offers} = props;
+  const {offers} = props;
 
   const locations = offers.map((offer) => {
     return offer.location;
@@ -33,7 +33,7 @@ const FavoritesPage = (props) => {
                     </div>
                     <div className="favorites__places">
                       {offers.map((offer) => {
-                        return offer.location === location ? <OfferCard offer={offer} key={offer.id} onCardClick={onCardClick}/> : ``;
+                        return offer.location === location ? <OfferCard offer={offer} key={offer.id}/> : ``;
                       })}
                     </div>
                   </li>
@@ -60,7 +60,6 @@ FavoritesPage.propTypes = {
     location: PropTypes.string.isRequired,
   }),
   offers: PropTypes.array.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default FavoritesPage;

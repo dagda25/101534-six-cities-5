@@ -4,7 +4,7 @@ import OffersList from "../offers-list/offers-list";
 import Header from "../header/header";
 
 const MainPage = (props) => {
-  const {offerCount, offers, onCardClick} = props;
+  const {offerCount, offers} = props;
 
   return (
     <React.Fragment>
@@ -73,7 +73,7 @@ const MainPage = (props) => {
                   <option className="places__option" value="top-rated">Top rated first</option>
                 </select>
               </form>
-              <OffersList offers={offers} onCardClick={onCardClick}/>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -90,5 +90,4 @@ export default MainPage;
 MainPage.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };

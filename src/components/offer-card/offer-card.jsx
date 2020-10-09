@@ -58,7 +58,6 @@ OfferCard.propTypes = {
   ),
   handleMouseOver: PropTypes.func,
   handleMouseOut: PropTypes.func,
-  onCardClick: PropTypes.func,
 };
 
 

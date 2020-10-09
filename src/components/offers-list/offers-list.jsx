@@ -17,7 +17,6 @@ class OffersList extends React.Component {
 
   render() {
     const offers = this.props.offers;
-    const onCardClick = this.props.onCardClick;
 
     const isActive = (id) => {
       return id === this.state.activeCard;
@@ -33,7 +32,7 @@ class OffersList extends React.Component {
     return (
       <div className="cities__places-list places__list tabs__content">
         {offers.map((offer) => (
-          <OfferCard offer={offer} active={isActive(offer.id)} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut} key={offer.id} onCardClick={onCardClick}/>
+          <OfferCard offer={offer} active={isActive(offer.id)} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut} key={offer.id}/>
         ))}
       </div>
     );
@@ -51,7 +50,6 @@ OffersList.propTypes = {
     id: PropTypes.number.isRequired,
   }),
   offers: PropTypes.array.isRequired,
-  onCardClick: PropTypes.func
 };
 
 export default OffersList;

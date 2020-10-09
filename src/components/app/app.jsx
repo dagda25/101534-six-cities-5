@@ -14,13 +14,10 @@ const App = (props) => {
       <Switch>
         <Route
           exact path="/"
-          render={({history}) => (
+          render={() => (
             <MainPage
               offerCount={offerCount}
               offers={offers}
-              onCardClick={() => {
-                history.push(`/offer`);
-              }}
             />
           )}
         />
@@ -29,12 +26,9 @@ const App = (props) => {
         </Route>
         <Route
           exact path="/favorites"
-          render={({history}) => (
+          render={() => (
             <FavoritesPage
               offers={offers}
-              onCardClick={() => {
-                history.push(`/offer`);
-              }}
             />
           )}
         />
@@ -43,7 +37,7 @@ const App = (props) => {
             const {id} = match.params;
             return (
               <OfferPage
-                offer={offers.find((item) => item.id === Number(id))}
+                offer={offers.find((item) => item.id === +id)}
                 offers={offers}
                 reviews={reviews}
               />
