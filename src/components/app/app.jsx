@@ -8,22 +8,41 @@ import OfferPage from "../offer-page/offer-page";
 
 
 const App = (props) => {
-  const {offerCount} = props;
+  const {offerCount, offers, reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
-          <MainPage offerCount={offerCount} />
-        </Route>
+        <Route
+          exact path="/"
+          render={() => (
+            <MainPage
+              offerCount={offerCount}
+              offers={offers}
+            />
+          )}
+        />
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <Route exact path="/favorites">
-          <FavoritesPage />
-        </Route>
-        <Route exact path="/offer/:id?">
-          <OfferPage />
-        </Route>
+        <Route
+          exact path="/favorites"
+          render={() => (
+            <FavoritesPage
+              offers={offers}
+            />
+          )}
+        />
+        <Route exact path="/offer/:id?"
+          render={({match}) => {
+            const {id} = match.params;
+            return (
+              <OfferPage
+                offer={offers.find((item) => item.id === +id)}
+                offers={offers}
+                reviews={reviews}
+              />
+            );
+          }} />
       </Switch>
     </BrowserRouter>
   );
@@ -31,4 +50,8 @@ const App = (props) => {
 
 export default App;
 
-App.propTypes = {offerCount: PropTypes.number.isRequired};
+App.propTypes = {
+  offerCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired
+};
