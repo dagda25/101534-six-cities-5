@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
-// import '../../../node_modules/leaflet/dist/leaflet.css';
+import '../../../node_modules/leaflet/dist/leaflet.css';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -42,7 +42,7 @@ class Map extends React.PureComponent {
 
   render() {
     return (
-      <div id="map">
+      <div id="map" style={{width: `512px`, height: `512px`, marginTop: `30px`}}>
 
       </div>
     );
