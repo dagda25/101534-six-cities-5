@@ -8,7 +8,7 @@ import OfferPage from "../offer-page/offer-page";
 
 
 const App = (props) => {
-  const {offerCount, offers, reviews} = props;
+  const {offerCount, offers, reviews, cities} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -18,6 +18,7 @@ const App = (props) => {
             <MainPage
               offerCount={offerCount}
               offers={offers}
+              cities={cities}
             />
           )}
         />
@@ -53,5 +54,6 @@ export default App;
 App.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.array.isRequired,
+  cities: PropTypes.array.isRequired,
 };
