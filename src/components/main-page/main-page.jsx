@@ -8,7 +8,7 @@ import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 
 const MainPage = (props) => {
-  const {offers, offersList, changeCity, cities, currentCity} = props;
+  const {offersList, changeCity, cities, currentCity} = props;
 
   return (
     <React.Fragment>
@@ -66,6 +66,10 @@ const MainPage = (props) => {
 MainPage.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
+  offersList: PropTypes.array.isRequired,
+  changeCity: PropTypes.func.isRequired,
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

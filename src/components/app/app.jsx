@@ -11,6 +11,7 @@ import OfferPage from "../offer-page/offer-page";
 
 const App = (props) => {
   const {offers, reviews, cities} = props;
+
   return (
     <BrowserRouter>
       <Switch>

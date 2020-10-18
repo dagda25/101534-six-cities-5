@@ -14,7 +14,7 @@ class Map extends React.PureComponent {
     const city = [52.38333, 4.9];
 
     const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
 
@@ -51,7 +51,7 @@ class Map extends React.PureComponent {
 
   render() {
     return (
-      <div id="map" style={{width: `512px`, height: `512px`, marginTop: `30px`}}>
+      <div id="map" style={{width: `512px`, height: `512px`, margin: `30px auto 0px`}}>
 
       </div>
     );

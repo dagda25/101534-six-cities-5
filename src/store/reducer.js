@@ -16,12 +16,11 @@ const reducer = (state = initialState, action) => {
       });
 
     case ActionType.GET_OFFER_LIST:
-
-
+      return state;
+    default:
       return state;
   }
 
-  return state;
 };
 
 

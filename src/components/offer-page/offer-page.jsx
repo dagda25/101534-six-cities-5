@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import OffersList from "../offers-list/offers-list";
 import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
+import Map from "../map/map";
 
 const OfferPage = (props) => {
   const offers = props.offers;
   const offer = props.offer;
+
   const {name, mark, images, price, rating, features, inside} = offer;
 
   const reviews = props.reviews;
@@ -133,7 +135,9 @@ const OfferPage = (props) => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map offers={[offer]}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

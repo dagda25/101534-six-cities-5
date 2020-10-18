@@ -18,6 +18,7 @@ ReactDOM.render(
       <App
         offers={offers}
         cities={cities}
+        reviews={reviews}
       />
     </Provider>,
     document.querySelector(`#root`)
