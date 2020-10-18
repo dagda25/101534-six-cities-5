@@ -6,9 +6,9 @@ import '../../../node_modules/leaflet/dist/leaflet.css';
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.map = null;
   }
-
-  componentDidMount() {
+  initMap() {
     const {offers} = this.props;
 
     const city = [52.38333, 4.9];
@@ -19,25 +19,34 @@ class Map extends React.PureComponent {
     });
 
     const zoom = 12;
-    const map = leaflet.map(`map`, {
+    this.map = leaflet.map(`map`, {
       center: city,
       zoom,
       zoomControl: false,
       marker: true
     });
-    map.setView(city, zoom);
+    this.map.setView(city, zoom);
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
+      .addTo(this.map);
 
 
     offers.forEach((offer) => {
       leaflet
       .marker(offer.coords, {icon})
-      .addTo(map);
+      .addTo(this.map);
     });
+  }
+
+  componentDidMount() {
+    this.initMap();
+  }
+
+  componentDidUpdate() {
+    this.map.remove();
+    this.initMap();
   }
 
   render() {
