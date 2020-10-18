@@ -13,10 +13,6 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
 );
 
-const Settings = {
-  OFFER_COUNT: 312
-};
-
 ReactDOM.render(
     <Provider store={store}>
       <App

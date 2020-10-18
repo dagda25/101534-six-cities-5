@@ -125,7 +125,7 @@ export default [
   {
     id: 4,
     name: `Beautiful & luxurious studio at great location`,
-    location: `Cologne`,
+    location: `Paris`,
     mark: `Premium`,
     rating: 4.8,
     type: `Apartment`,

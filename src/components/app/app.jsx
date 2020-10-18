@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import MainPage from "../main-page/main-page";
 import LoginPage from "../login-page/login-page";
 import FavoritesPage from "../favorites-page/favorites-page";
@@ -8,7 +10,7 @@ import OfferPage from "../offer-page/offer-page";
 
 
 const App = (props) => {
-  const {offerCount, offers, reviews, cities} = props;
+  const {offers, reviews, cities} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -16,7 +18,6 @@ const App = (props) => {
           exact path="/"
           render={() => (
             <MainPage
-              offerCount={offerCount}
               offers={offers}
               cities={cities}
             />
@@ -49,11 +50,25 @@ const App = (props) => {
   );
 };
 
-export default App;
-
 App.propTypes = {
-  offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity,
+  offersList: state.offersList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  getOfferList(question, answer) {
+    dispatch(ActionCreator.getOfferList(question, answer));
+  },
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

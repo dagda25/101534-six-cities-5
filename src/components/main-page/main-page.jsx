@@ -8,7 +8,7 @@ import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 
 const MainPage = (props) => {
-  const {offerCount, offers, offersList, changeCity, cities} = props;
+  const {offers, offersList, changeCity, cities, currentCity} = props;
 
   return (
     <React.Fragment>
@@ -18,7 +18,7 @@ const MainPage = (props) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <CitiesList cities={cities}/>
+              <CitiesList cities={cities} changeCity={changeCity} currentCity={currentCity}/>
             </ul>
           </section>
         </div>
@@ -26,7 +26,7 @@ const MainPage = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersList.length} place(s) to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -69,7 +69,7 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
+  currentCity: state.currentCity,
   offersList: state.offersList,
 });
 
