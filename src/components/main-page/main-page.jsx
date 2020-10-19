@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 import OffersList from "../offers-list/offers-list";
 import Header from "../header/header";
 import Map from "../map/map";
+import CitiesList from "../cities-list/cities-list";
 
 const MainPage = (props) => {
-  const {offerCount, offers} = props;
+  const {offersList, changeCity, cities, currentCity} = props;
 
   return (
     <React.Fragment>
@@ -15,36 +18,7 @@ const MainPage = (props) => {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
+              <CitiesList cities={cities} changeCity={changeCity} currentCity={currentCity}/>
             </ul>
           </section>
         </div>
@@ -52,7 +26,7 @@ const MainPage = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offersList.length} place(s) to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -74,11 +48,11 @@ const MainPage = (props) => {
                   <option className="places__option" value="top-rated">Top rated first</option>
                 </select>
               </form>
-              <OffersList offers={offers}/>
+              <OffersList offers={offersList}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map offers={offersList}/>
               </section>
             </div>
           </div>
@@ -88,9 +62,29 @@ const MainPage = (props) => {
   );
 };
 
-export default MainPage;
 
 MainPage.propTypes = {
   offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
+  offersList: PropTypes.array.isRequired,
+  changeCity: PropTypes.func.isRequired,
+  cities: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  currentCity: state.currentCity,
+  offersList: state.offersList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeCity(city) {
+    dispatch(ActionCreator.changeCity(city));
+  },
+  getOfferList(question, answer) {
+    dispatch(ActionCreator.getOfferList(question, answer));
+  },
+});
+
+export {MainPage};
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

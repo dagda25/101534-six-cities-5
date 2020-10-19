@@ -11,10 +11,6 @@ class OffersList extends React.Component {
     };
   }
 
-  shouldComponentUpdate() {
-    return false;
-  }
-
   render() {
     const offers = this.props.offers;
 
