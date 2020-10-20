@@ -60,6 +60,7 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
   offersList: state.offersList,
+  activeCardID: state.activeCardID
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,6 +69,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getOfferList(question, answer) {
     dispatch(ActionCreator.getOfferList(question, answer));
+  },
+  changeActiveCard() {
+    dispatch(ActionCreator.changeActiveCard());
   },
 });
 
