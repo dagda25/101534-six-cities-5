@@ -42,7 +42,7 @@ const App = (props) => {
               <OfferPage
                 offer={offers.find((item) => item.id === +id)}
                 offers={offers}
-                reviews={reviews}
+                reviews={reviews.filter((item) => item.offerId === +id)}
               />
             );
           }} />
