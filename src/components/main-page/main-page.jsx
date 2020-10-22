@@ -64,7 +64,6 @@ const MainPage = (props) => {
 
 
 MainPage.propTypes = {
-  offerCount: PropTypes.number.isRequired,
   offers: PropTypes.array.isRequired,
   offersList: PropTypes.array.isRequired,
   changeCity: PropTypes.func.isRequired,
@@ -81,8 +80,11 @@ const mapDispatchToProps = (dispatch) => ({
   changeCity(city) {
     dispatch(ActionCreator.changeCity(city));
   },
-  getOfferList(question, answer) {
-    dispatch(ActionCreator.getOfferList(question, answer));
+  getOfferList() {
+    dispatch(ActionCreator.getOfferList());
+  },
+  changeActiveCard() {
+    dispatch(ActionCreator.changeActiveCard());
   },
 });
 

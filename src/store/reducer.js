@@ -5,6 +5,7 @@ import {extend} from "../utils";
 const initialState = {
   currentCity: `Paris`,
   offersList: offers.filter((offer) => offer.location === `Paris`),
+  activeCardID: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +18,10 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.GET_OFFER_LIST:
       return state;
+    case ActionType.CHANGE_ACTIVE_CARD:
+      return extend(state, {
+        activeCardID: action.payload
+      });
     default:
       return state;
   }

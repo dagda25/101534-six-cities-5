@@ -1,13 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 
 const OfferCard = (props) => {
-  const {offer, handleMouseOver, handleMouseOut} = props;
+  const {offer, changeActiveCard} = props;
+
   const {name, mark, images, price, type, id} = offer;
 
   return (
-    <article className="cities__place-card place-card" data-id={id} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseOut={() => changeActiveCard(null)}>
       <div className="place-card__mark">
         <span>{mark}</span>
       </div>
@@ -58,7 +61,14 @@ OfferCard.propTypes = {
   ),
   handleMouseOver: PropTypes.func,
   handleMouseOut: PropTypes.func,
+  changeActiveCard: PropTypes.func,
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  changeActiveCard(evt) {
+    dispatch(ActionCreator.changeActiveCard(evt));
+  },
+});
 
-export default OfferCard;
+export {OfferCard};
+export default connect(null, mapDispatchToProps)(OfferCard);

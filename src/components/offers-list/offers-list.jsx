@@ -12,23 +12,17 @@ class OffersList extends React.Component {
   }
 
   render() {
-    const offers = this.props.offers;
+    const {offers} = this.props;
 
     const isActive = (id) => {
       return id === this.state.activeCard;
     };
 
-    const handleMouseOver = (evt) => {
-      this.setState({activeCard: +evt.target.closest(`article`).dataset.id});
-    };
-    const handleMouseOut = () => {
-      this.setState({activeCard: null});
-    };
 
     return (
       <div className="cities__places-list places__list tabs__content">
         {offers.map((offer) => (
-          <OfferCard offer={offer} active={isActive(offer.id)} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut} key={offer.id}/>
+          <OfferCard offer={offer} active={isActive(offer.id)} key={offer.id}/>
         ))}
       </div>
     );
