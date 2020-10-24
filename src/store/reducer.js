@@ -6,6 +6,7 @@ const initialState = {
   currentCity: `Paris`,
   offersList: offers.filter((offer) => offer.location === `Paris`),
   activeCardID: null,
+  currentSorting: `popular`
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +22,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_ACTIVE_CARD:
       return extend(state, {
         activeCardID: action.payload
+      });
+    case ActionType.CHANGE_SORTING:
+      return extend(state, {
+        currentSorting: action.payload
       });
     default:
       return state;

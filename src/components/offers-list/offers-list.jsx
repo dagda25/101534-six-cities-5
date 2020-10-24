@@ -12,7 +12,7 @@ class OffersList extends React.Component {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, currentSorting} = this.props;
 
     const isActive = (id) => {
       return id === this.state.activeCard;
@@ -40,6 +40,7 @@ OffersList.propTypes = {
     id: PropTypes.number.isRequired,
   }),
   offers: PropTypes.array.isRequired,
+  currentSorting: PropTypes.string.isRequired,
 };
 
 export default OffersList;

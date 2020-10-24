@@ -2,6 +2,7 @@ export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFER_LIST: `GET_OFFER_LIST`,
   CHANGE_ACTIVE_CARD: `CHANGE_ACTIVE_CARD`,
+  CHANGE_SORTING: `CHANGE_SORTING`
 };
 
 export const ActionCreator = {
@@ -22,4 +23,10 @@ export const ActionCreator = {
         payload: null
       };
   },
+  changeSorting: (evt) => {
+    return {
+      type: ActionType.CHANGE_SORTING,
+      payload: evt.target.value,
+    };
+  }
 };
