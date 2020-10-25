@@ -40,7 +40,7 @@ OffersList.propTypes = {
     id: PropTypes.number.isRequired,
   }),
   offers: PropTypes.array.isRequired,
-  currentSorting: PropTypes.string.isRequired,
+  currentSorting: PropTypes.number.isRequired,
 };
 
 export default OffersList;

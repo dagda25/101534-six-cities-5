@@ -1,12 +1,13 @@
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
-import {extend} from "../utils";
+import {extend} from "../utils/utils";
 
 const initialState = {
   currentCity: `Paris`,
   offersList: offers.filter((offer) => offer.location === `Paris`),
   activeCardID: null,
-  currentSorting: `popular`
+  currentSorting: `Popular`,
+  isSortingMenuOpened: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +27,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_SORTING:
       return extend(state, {
         currentSorting: action.payload
+      });
+    case ActionType.TOGGLE_SORTING_MENU:
+      return extend(state, {
+        isSortingMenuOpened: !state.isSortingMenuOpened
       });
     default:
       return state;

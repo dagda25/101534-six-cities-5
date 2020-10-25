@@ -10,7 +10,7 @@ import MainEmpty from "../main-empty/main-empty";
 import SortingForm from "../sorting-form/sorting-form";
 
 const MainPage = (props) => {
-  const {offersList, changeCity, cities, currentCity, currentSorting, changeSorting} = props;
+  const {offersList, changeCity, cities, currentCity, currentSorting, changeSorting, isSortingMenuOpened, toggleSortingMenu} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -30,7 +30,7 @@ const MainPage = (props) => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offersList.length} place(s) to stay in {currentCity}</b>
-                <SortingForm changeSorting={changeSorting} currentSorting={currentSorting}/>
+                <SortingForm changeSorting={changeSorting} currentSorting={currentSorting} isSortingMenuOpened={isSortingMenuOpened} toggleSortingMenu={toggleSortingMenu}/>
                 <OffersList offers={offersList} currentSorting={currentSorting}/>
               </section>
               <div className="cities__right-section">
@@ -56,12 +56,15 @@ MainPage.propTypes = {
   currentCity: PropTypes.string.isRequired,
   currentSorting: PropTypes.string.isRequired,
   changeSorting: PropTypes.func.isRequired,
+  isSortingMenuOpened: PropTypes.bool.isRequired,
+  toggleSortingMenu: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
   offersList: state.offersList,
-  currentSorting: state.currentSorting
+  currentSorting: state.currentSorting,
+  isSortingMenuOpened: state.isSortingMenuOpened
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -76,6 +79,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSorting(evt) {
     dispatch(ActionCreator.changeSorting(evt));
+  },
+  toggleSortingMenu() {
+    dispatch(ActionCreator.toggleSortingMenu());
   }
 });
 

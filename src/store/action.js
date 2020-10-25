@@ -2,7 +2,8 @@ export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFER_LIST: `GET_OFFER_LIST`,
   CHANGE_ACTIVE_CARD: `CHANGE_ACTIVE_CARD`,
-  CHANGE_SORTING: `CHANGE_SORTING`
+  CHANGE_SORTING: `CHANGE_SORTING`,
+  TOGGLE_SORTING_MENU: `TOGGLE_SORTING_MENU`
 };
 
 export const ActionCreator = {
@@ -26,7 +27,12 @@ export const ActionCreator = {
   changeSorting: (evt) => {
     return {
       type: ActionType.CHANGE_SORTING,
-      payload: evt.target.value,
+      payload: evt.target.key,
     };
-  }
+  },
+  toggleSortingMenu: () => {
+    return {
+      type: ActionType.TOGGLE_SORTING_MENU,
+    };
+  },
 };

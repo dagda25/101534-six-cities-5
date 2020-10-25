@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {SortingTypes} from "../../utils/const";
 
 const SortingForm = (props) => {
-  const {changeSorting, currentSorting} = props;
-  const sortingList = React.createRef();
+  const {changeSorting, currentSorting, isSortingMenuOpened, toggleSortingMenu} = props;
   const sortingCaption = React.createRef();
-  const selector = React.createRef();
 
   const handleClick = (evt) => {
-    if (!evt.target.dataset) {
+    console.log(evt.target)
+    /*if (!evt.target.dataset) {
       return;
     }
     if (evt.target.dataset.type === `toggler`) {
@@ -16,7 +16,7 @@ const SortingForm = (props) => {
     }
     if (evt.target.dataset.type === `option`) {
       changeOption(evt.target);
-    }
+    }*/
   };
 
   const toggleSortingList = (list) => {
@@ -31,30 +31,33 @@ const SortingForm = (props) => {
       el.classList.remove(`places__option--active`);
     });
     option.classList.add(`places__option--active`);
-    selector.current.dispatchEvent(new Event(`change`, {bubbles: true}));
+
     selector.current.value = option.dataset.value;
+    selector.current.dispatchEvent(new Event(`change`, {bubbles: true}));
   };
 
   return (
-    <form className="places__sorting" action="#" method="get" onClick={(evt) => handleClick(evt)}>
+    <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex="0" data-type="toggler" ref={sortingCaption}>
-        Popular
+      <span className="places__sorting-type" tabIndex="0" data-type="toggler" ref={sortingCaption} onClick={toggleSortingMenu}>
+        {currentSorting}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened" ref={sortingList} data-value="popular">
-        <li className="places__option places__option--active" tabIndex="0" data-type="option" data-value="popular">Popular</li>
-        <li className="places__option" tabIndex="0" data-type="option" data-value="to-high">Price: low to high</li>
-        <li className="places__option" tabIndex="0" data-type="option" data-value="to-low">Price: high to low</li>
-        <li className="places__option" tabIndex="0" data-type="option" data-value="top-rated">Top rated first</li>
+      <ul className={isSortingMenuOpened ? `places__options places__options--custom places__options--opened` : `places__options places__options--custom`} data-value="popular">
+        {SortingTypes.map((type) => {
+          return (
+            <li className={type.name === currentSorting ? `places__option places__option--active` : `places__option`} tabIndex="0" onClick={(evt) => handleClick(evt)} key={type.id}>{type.name}</li>
+          );
+        })}
       </ul>
-      <select className="places__sorting-type" id="places-sorting" value={currentSorting} ref={selector} onChange={(evt) => changeSorting(evt)}>
-        <option className="places__option" value="popular">Popular</option>
-        <option className="places__option" value="to-high">Price: low to high</option>
-        <option className="places__option" value="to-low">Price: high to low</option>
-        <option className="places__option" value="top-rated">Top rated first</option>
+      <select className="places__sorting-type" id="places-sorting" value={currentSorting} onChange={(evt) => changeSorting(evt)}>
+        {SortingTypes.map((type) => {
+          return (
+            <option className="places__option" value={type.name} key={type.id}>{type.name}</option>
+          );
+        })}
       </select>
     </form>
   );
@@ -63,6 +66,8 @@ const SortingForm = (props) => {
 SortingForm.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   currentSorting: PropTypes.string.isRequired,
+  isSortingMenuOpened: PropTypes.bool.isRequired,
+  toggleSortingMenu: PropTypes.func.isRequired,
 };
 
 export default SortingForm;
