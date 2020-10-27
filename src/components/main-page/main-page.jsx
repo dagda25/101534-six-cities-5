@@ -10,12 +10,12 @@ import MainEmpty from "../main-empty/main-empty";
 import SortingForm from "../sorting-form/sorting-form";
 
 const MainPage = (props) => {
-  const {offersList, changeCity, cities, currentCity, currentSorting, changeSorting, isSortingMenuOpened, toggleSortingMenu} = props;
+  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, isSortingMenuOpened, toggleSortingMenu} = props;
 
   return (
     <div className="page page--gray page--main">
       <Header/>
-      <main className={offersList.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
+      <main className={currentCityOffers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -29,13 +29,13 @@ const MainPage = (props) => {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offersList.length} place(s) to stay in {currentCity}</b>
+                <b className="places__found">{currentCityOffers.length} place(s) to stay in {currentCity}</b>
                 <SortingForm changeSorting={changeSorting} currentSorting={currentSorting} isSortingMenuOpened={isSortingMenuOpened} toggleSortingMenu={toggleSortingMenu}/>
-                <OffersList offers={offersList} currentSorting={currentSorting}/>
+                <OffersList offers={currentCityOffers} currentSorting={currentSorting}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={offersList}/>
+                  <Map offers={currentCityOffers}/>
                 </section>
               </div>
             </div>
@@ -58,13 +58,15 @@ MainPage.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   isSortingMenuOpened: PropTypes.bool.isRequired,
   toggleSortingMenu: PropTypes.func.isRequired,
+  currentCityOffers: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
   offersList: state.offersList,
   currentSorting: state.currentSorting,
-  isSortingMenuOpened: state.isSortingMenuOpened
+  isSortingMenuOpened: state.isSortingMenuOpened,
+  currentCityOffers: state.currentCityOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

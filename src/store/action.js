@@ -11,8 +11,9 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: event.target.textContent,
   }),
-  getOfferList: () => ({
+  getOfferList: (data) => ({
     type: ActionType.GET_OFFER_LIST,
+    payload: data
   }),
   changeActiveCard: (evt) => {
     return evt ? {
