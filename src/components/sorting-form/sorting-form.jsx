@@ -21,7 +21,7 @@ const SortingForm = (props) => {
           );
         })}
       </ul>
-      <select className="places__sorting-type" id="places-sorting" value={currentSorting} onChange={(evt) => changeSorting(evt)}>
+      <select className="places__sorting-type" id="places-sorting" value={currentSorting} onChange={(evt) => changeSorting(evt)} style={{display: `none`}}>
         {SortingTypes.map((type) => {
           return (
             <option className="places__option" value={type.name} key={type.id}>{type.name}</option>

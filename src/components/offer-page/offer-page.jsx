@@ -7,10 +7,11 @@ import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
 
 const OfferPage = (props) => {
+
   const offers = props.offers;
   const offer = props.offer;
 
-  const {name, mark, images, price, rating, features, inside} = offer;
+  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults} = offer;
 
   const reviews = props.reviews;
 
@@ -33,11 +34,11 @@ const OfferPage = (props) => {
           <div className="property__container container">
             <div className="property__wrapper">
               <div className="property__mark">
-                <span>{mark}</span>
+                <span>{isPremium}</span>
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {name}
+                  {title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -55,13 +56,13 @@ const OfferPage = (props) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {features.entire}
+                  {goods}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {features.bedrooms} Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {features.adults} adults
+                  Max {adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -72,7 +73,7 @@ const OfferPage = (props) => {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {
-                    inside.map((item, i) => {
+                    goods.map((item, i) => {
                       return (
                         <li className="property__inside-item" key={i}>
                           {item}
@@ -127,18 +128,7 @@ const OfferPage = (props) => {
 };
 
 OfferPage.propTypes = {
-  offer: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    mark: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    location: PropTypes.string.isRequired,
-    features: PropTypes.object.isRequired,
-    inside: PropTypes.array.isRequired,
-  }),
+  offer: PropTypes.object.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
 };

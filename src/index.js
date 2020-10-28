@@ -6,7 +6,6 @@ import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
 import {composeWithDevTools} from "redux-devtools-extension";
 import App from "./components/app/app";
-import offers from "./mocks/offers";
 import cities from "./mocks/cities";
 import reviews from "./mocks/reviews";
 import rootReducer from "./store/reducers/root-reducer";
@@ -22,16 +21,13 @@ const store = createStore(
         applyMiddleware(thunk.withExtraArgument(api))
     )
 );
-store.dispatch(fetchOffersList());
+store.dispatch(fetchOffersList()).then(
 
+    ReactDOM.render(
+        <Provider store={store}>
+          <App cities={cities} reviews={reviews}/>
+        </Provider>,
+        document.querySelector(`#root`)
+    )
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App
-        offers={offers}
-        cities={cities}
-        reviews={reviews}
-      />
-    </Provider>,
-    document.querySelector(`#root`)
 );

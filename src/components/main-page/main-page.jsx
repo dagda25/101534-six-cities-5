@@ -9,6 +9,7 @@ import CitiesList from "../cities-list/cities-list";
 import MainEmpty from "../main-empty/main-empty";
 import SortingForm from "../sorting-form/sorting-form";
 
+
 const MainPage = (props) => {
   const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, isSortingMenuOpened, toggleSortingMenu} = props;
 
@@ -61,11 +62,11 @@ MainPage.propTypes = {
   currentCityOffers: PropTypes.array.isRequired
 };
 
-const mapStateToProps = ({DATA, SORTING}) => ({
+const mapStateToProps = ({DATA}) => ({
   currentCity: DATA.currentCity,
   offersList: DATA.offersList,
-  currentSorting: SORTING.currentSorting,
-  isSortingMenuOpened: SORTING.isSortingMenuOpened,
+  currentSorting: DATA.currentSorting,
+  isSortingMenuOpened: DATA.isSortingMenuOpened,
   currentCityOffers: DATA.currentCityOffers,
 });
 
