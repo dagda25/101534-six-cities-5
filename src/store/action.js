@@ -25,10 +25,10 @@ export const ActionCreator = {
         payload: null
       };
   },
-  changeSorting: (evt) => {
+  changeSorting: (type) => {
     return {
       type: ActionType.CHANGE_SORTING,
-      payload: evt.target.key,
+      payload: type,
     };
   },
   toggleSortingMenu: () => {

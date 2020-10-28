@@ -7,7 +7,8 @@ import {ActionCreator} from "../../store/action";
 const OfferCard = (props) => {
   const {offer, changeActiveCard} = props;
 
-  const {name, mark, images, price, type, id} = offer;
+  const {title, mark, images, price, type, id} = offer;
+
 
   return (
     <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseOut={() => changeActiveCard(null)}>
@@ -39,7 +40,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{name}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -50,7 +51,7 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   offer: PropTypes.shape(
       {
-        name: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
         images: PropTypes.array.isRequired,
         price: PropTypes.number.isRequired,
         rating: PropTypes.number.isRequired,

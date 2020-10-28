@@ -9,7 +9,7 @@ import App from "./components/app/app";
 import offers from "./mocks/offers";
 import cities from "./mocks/cities";
 import reviews from "./mocks/reviews";
-import {reducer} from "./store/reducer";
+import rootReducer from "./store/reducers/root-reducer";
 import {fetchOffersList} from "./store/api-actions";
 
 const api = createAPI(
@@ -17,14 +17,13 @@ const api = createAPI(
 );
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api))
     )
 );
-store.dispatch(fetchOffersList())
+store.dispatch(fetchOffersList());
 
-console.log(store.getState())
 
 ReactDOM.render(
     <Provider store={store}>

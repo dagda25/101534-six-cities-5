@@ -60,7 +60,8 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   currentCity: state.currentCity,
   offersList: state.offersList,
-  activeCardID: state.activeCardID
+  activeCardID: state.activeCardID,
+  currentCityOffers: state.currentCityOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

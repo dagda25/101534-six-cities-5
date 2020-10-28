@@ -61,12 +61,12 @@ MainPage.propTypes = {
   currentCityOffers: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-  offersList: state.offersList,
-  currentSorting: state.currentSorting,
-  isSortingMenuOpened: state.isSortingMenuOpened,
-  currentCityOffers: state.currentCityOffers,
+const mapStateToProps = ({DATA, SORTING}) => ({
+  currentCity: DATA.currentCity,
+  offersList: DATA.offersList,
+  currentSorting: SORTING.currentSorting,
+  isSortingMenuOpened: SORTING.isSortingMenuOpened,
+  currentCityOffers: DATA.currentCityOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

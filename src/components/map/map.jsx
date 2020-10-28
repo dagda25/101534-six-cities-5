@@ -11,14 +11,14 @@ class Map extends React.PureComponent {
   initMap() {
     const {offers} = this.props;
 
-    const city = [offers[0].city.location.latitude, offers[0].city.location.longitude];
+    const city = offers[0] ? [offers[0].city.location.latitude, offers[0].city.location.longitude] : [48.85661, 2.351499];
 
     const icon = leaflet.icon({
       iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
 
-    const zoom = offers[0].city.location.zoom;
+    const zoom = offers[0] ? offers[0].city.location.zoom : 12;
     this.map = leaflet.map(`map`, {
       center: city,
       zoom,
