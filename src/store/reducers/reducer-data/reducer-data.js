@@ -9,15 +9,22 @@ const initialState = {
   isSortingMenuOpened: false
 };
 
+export const SortingType = {
+  POPULAR: `Popular`,
+  TOP_RATED_FIRST: `Top rated first`,
+  PRICE_LOW_TO_HIGH: `Price: low to high`,
+  PRICE_HIGH_TO_LOW: `Price: high to low`,
+};
+
 const sort = (state, sortBy) => {
   switch (sortBy) {
-    case `Price: low to high`:
+    case SortingType.PRICE_LOW_TO_HIGH:
       return state.currentCityOffers.sort((a, b) => (a.price - b.price));
-    case `Price: high to low`:
+    case SortingType.PRICE_HIGH_TO_LOW:
       return state.currentCityOffers.sort((a, b) => (b.price - a.price));
-    case `Top rated first`:
+    case SortingType.TOP_RATED_FIRST:
       return state.currentCityOffers.sort((a, b) => (b.rating - a.rating));
-    case `Popular`:
+    case SortingType.POPULAR:
       return state.offersList.filter((offer) => offer.city.name === state.currentCity);
     default:
       return state;

@@ -11,7 +11,7 @@ import SortingForm from "../sorting-form/sorting-form";
 
 
 const MainPage = (props) => {
-  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, isSortingMenuOpened, toggleSortingMenu} = props;
+  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -31,7 +31,7 @@ const MainPage = (props) => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentCityOffers.length} place(s) to stay in {currentCity}</b>
-                <SortingForm changeSorting={changeSorting} currentSorting={currentSorting} isSortingMenuOpened={isSortingMenuOpened} toggleSortingMenu={toggleSortingMenu}/>
+                <SortingForm changeSorting={changeSorting} currentSorting={currentSorting}/>
                 <OffersList offers={currentCityOffers} currentSorting={currentSorting}/>
               </section>
               <div className="cities__right-section">
