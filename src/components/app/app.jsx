@@ -55,12 +55,15 @@ App.propTypes = {
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
+  currentCityOffers: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.currentCity,
-  offersList: state.offersList,
-  activeCardID: state.activeCardID
+const mapStateToProps = ({DATA, CARD}) => ({
+  currentCity: DATA.currentCity,
+  offersList: DATA.offersList,
+  activeCardID: CARD.activeCardID,
+  currentCityOffers: DATA.currentCityOffers,
+  offers: DATA.offersList
 });
 
 const mapDispatchToProps = (dispatch) => ({

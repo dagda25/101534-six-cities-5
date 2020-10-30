@@ -30,16 +30,8 @@ class OffersList extends React.Component {
 }
 
 OffersList.propTypes = {
-  offer: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    mark: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-  }),
   offers: PropTypes.array.isRequired,
+  currentSorting: PropTypes.string.isRequired,
 };
 
 export default OffersList;
