@@ -16,3 +16,8 @@ export const SortingTypes = [
     name: `Top rated first`
   },
 ];
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};

@@ -3,7 +3,8 @@ export const ActionType = {
   GET_OFFER_LIST: `GET_OFFER_LIST`,
   CHANGE_ACTIVE_CARD: `CHANGE_ACTIVE_CARD`,
   CHANGE_SORTING: `CHANGE_SORTING`,
-  TOGGLE_SORTING_MENU: `TOGGLE_SORTING_MENU`
+  TOGGLE_SORTING_MENU: `TOGGLE_SORTING_MENU`,
+  REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
 };
 
 export const ActionCreator = {
@@ -36,4 +37,8 @@ export const ActionCreator = {
       type: ActionType.TOGGLE_SORTING_MENU,
     };
   },
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
 };
