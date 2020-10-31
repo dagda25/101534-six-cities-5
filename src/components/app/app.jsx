@@ -1,22 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import MainPage from "../main-page/main-page";
 import LoginPage from "../login-page/login-page";
 import FavoritesPage from "../favorites-page/favorites-page";
 import OfferPage from "../offer-page/offer-page";
+import {login} from "../../store/api-actions";
+import browserHistory from "../../browser-history";
+import {AppRoute} from "../../utils/const";
 
 
 const App = (props) => {
-  const {offers, reviews, cities} = props;
+  const {offers, reviews, cities, onSubmit} = props;
 
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route
-          exact path="/"
+          exact path={AppRoute.ROOT}
           render={() => (
             <MainPage
               offers={offers}
@@ -24,11 +27,11 @@ const App = (props) => {
             />
           )}
         />
-        <Route exact path="/login">
-          <LoginPage />
+        <Route exact path={AppRoute.LOGIN}>
+          <LoginPage onSubmit={onSubmit}/>
         </Route>
         <Route
-          exact path="/favorites"
+          exact path={AppRoute.FAVORITES}
           render={() => (
             <FavoritesPage
               offers={offers}
@@ -47,7 +50,7 @@ const App = (props) => {
             );
           }} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
@@ -56,14 +59,16 @@ App.propTypes = {
   reviews: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
   currentCityOffers: PropTypes.array.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA, CARD}) => ({
+const mapStateToProps = ({DATA, CARD, USER}) => ({
   currentCity: DATA.currentCity,
   offersList: DATA.offersList,
   activeCardID: CARD.activeCardID,
   currentCityOffers: DATA.currentCityOffers,
-  offers: DATA.offersList
+  offers: DATA.offersList,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -76,6 +81,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeActiveCard() {
     dispatch(ActionCreator.changeActiveCard());
   },
+  onSubmit(authData) {
+    dispatch(login(authData));
+  }
 });
 
 export {App};

@@ -9,16 +9,20 @@ import App from "./components/app/app";
 import cities from "./mocks/cities";
 import reviews from "./mocks/reviews";
 import rootReducer from "./store/reducers/root-reducer";
+import {ActionCreator} from "./store/action";
+import {AuthorizationStatus} from "./utils/const";
 import {fetchOffersList} from "./store/api-actions";
+import {redirect} from "./middlewares/redirect";
 
 const api = createAPI(
-    () => store.dispatch(fetchOffersList())
+    () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
 const store = createStore(
     rootReducer,
     composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api))
+        applyMiddleware(thunk.withExtraArgument(api)),
+        applyMiddleware(redirect)
     )
 );
 store.dispatch(fetchOffersList()).then(

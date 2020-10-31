@@ -5,6 +5,7 @@ export const ActionType = {
   CHANGE_SORTING: `CHANGE_SORTING`,
   TOGGLE_SORTING_MENU: `TOGGLE_SORTING_MENU`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
 
 export const ActionCreator = {
@@ -37,8 +38,12 @@ export const ActionCreator = {
       type: ActionType.TOGGLE_SORTING_MENU,
     };
   },
-  requireAuthorization: (status) => ({
+  requireAuthorization: (status, email) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
+    payload: {status, email},
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
