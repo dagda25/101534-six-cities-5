@@ -11,11 +11,11 @@ import SortingForm from "../sorting-form/sorting-form";
 
 
 const MainPage = (props) => {
-  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting} = props;
+  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, authorizationStatus, userName} = props;
 
   return (
     <div className="page page--gray page--main">
-      <Header/>
+      <Header authorizationStatus={authorizationStatus} userName={userName}/>
       <main className={currentCityOffers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -59,15 +59,20 @@ MainPage.propTypes = {
   changeSorting: PropTypes.func.isRequired,
   isSortingMenuOpened: PropTypes.bool.isRequired,
   toggleSortingMenu: PropTypes.func.isRequired,
-  currentCityOffers: PropTypes.array.isRequired
+  currentCityOffers: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  userName: PropTypes.string,
+
 };
 
-const mapStateToProps = ({DATA}) => ({
+const mapStateToProps = ({DATA, USER}) => ({
   currentCity: DATA.currentCity,
   offersList: DATA.offersList,
   currentSorting: DATA.currentSorting,
   isSortingMenuOpened: DATA.isSortingMenuOpened,
   currentCityOffers: DATA.currentCityOffers,
+  authorizationStatus: USER.authorizationStatus,
+  userName: USER.userName,
 });
 
 const mapDispatchToProps = (dispatch) => ({
