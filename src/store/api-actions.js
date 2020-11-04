@@ -25,3 +25,32 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
       throw err;
     })
 );
+
+export const fetchOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}`)
+    .then((data) => dispatch(ActionCreator.getOffer(data.data)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.OFFER}/${id}`)))
+    .catch((err) => {
+      throw err;
+    })
+);
+
+export const fetchReviews = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.COMMENTS}/${id}`)
+    .then((data) => dispatch(ActionCreator.getReviews(data.data)))
+    .catch((err) => {
+      throw err;
+    })
+);
+
+export const fetchReview = (id, {review, rating}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${id}`, {comment: review, rating})
+    .then((data) => {
+      dispatch(ActionCreator.postReview(data.data));
+    })
+    .catch((err) => {
+      throw err;
+    })
+);
+
+

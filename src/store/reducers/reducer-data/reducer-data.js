@@ -6,6 +6,8 @@ const initialState = {
   currentCityOffers: [],
   currentCity: `Paris`,
   currentSorting: `Popular`,
+  currentOffer: {},
+  currentOfferReviews: [],
   isSortingMenuOpened: false
 };
 
@@ -38,6 +40,18 @@ const reducerData = (state = initialState, action) => {
       return extend(state, {
         offersList: action.payload,
         currentCityOffers: action.payload.filter((offer) => offer.city.name === state.currentCity),
+      });
+    case ActionType.GET_OFFER:
+      return extend(state, {
+        currentOffer: action.payload,
+      });
+    case ActionType.GET_REVIEWS:
+      return extend(state, {
+        currentOfferReviews: action.payload,
+      });
+    case ActionType.POST_REVIEW:
+      return extend(state, {
+        currentOfferReviews: action.payload,
       });
     case ActionType.CHANGE_CITY:
       return extend(state, {

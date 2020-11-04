@@ -1,11 +1,14 @@
 export const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
   GET_OFFER_LIST: `GET_OFFER_LIST`,
+  GET_OFFER: `GET_OFFER`,
   CHANGE_ACTIVE_CARD: `CHANGE_ACTIVE_CARD`,
   CHANGE_SORTING: `CHANGE_SORTING`,
   TOGGLE_SORTING_MENU: `TOGGLE_SORTING_MENU`,
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
+  GET_REVIEWS: `GET_REVIEWS`,
+  POST_REVIEW: `POST_REVIEW`,
 };
 
 export const ActionCreator = {
@@ -15,6 +18,18 @@ export const ActionCreator = {
   }),
   getOfferList: (data) => ({
     type: ActionType.GET_OFFER_LIST,
+    payload: data
+  }),
+  getOffer: (data) => ({
+    type: ActionType.GET_OFFER,
+    payload: data
+  }),
+  getReviews: (data) => ({
+    type: ActionType.GET_REVIEWS,
+    payload: data
+  }),
+  postReview: (data) => ({
+    type: ActionType.POST_REVIEW,
     payload: data
   }),
   changeActiveCard: (evt) => {

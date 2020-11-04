@@ -13,7 +13,7 @@ import {AppRoute} from "../../utils/const";
 
 
 const App = (props) => {
-  const {offers, reviews, cities, onSubmit} = props;
+  const {offers, cities, onSubmit, currentOfferReviews} = props;
 
   return (
     <Router history={browserHistory}>
@@ -45,7 +45,8 @@ const App = (props) => {
               <OfferPage
                 offer={offers.find((item) => item.id === +id)}
                 offers={offers}
-                reviews={reviews.filter((item) => item.offerId === +id)}
+                reviews={currentOfferReviews}
+                id={id}
               />
             );
           }} />
@@ -60,6 +61,7 @@ App.propTypes = {
   cities: PropTypes.array.isRequired,
   currentCityOffers: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  currentOfferReviews: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({DATA, CARD, USER}) => ({
@@ -67,6 +69,7 @@ const mapStateToProps = ({DATA, CARD, USER}) => ({
   offersList: DATA.offersList,
   activeCardID: CARD.activeCardID,
   currentCityOffers: DATA.currentCityOffers,
+  currentOfferReviews: DATA.currentOfferReviews,
   offers: DATA.offersList,
   authorizationStatus: USER.authorizationStatus,
 });

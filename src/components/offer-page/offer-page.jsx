@@ -5,13 +5,16 @@ import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
 import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
+import {AuthorizationStatus} from "../../utils/const";
+import {connect} from "react-redux";
+import {fetchReview} from "../../store/api-actions";
+
 
 const OfferPage = (props) => {
 
-  const offers = props.offers;
-  const offer = props.offer;
+  const {offers, offer, authorizationStatus, postReview} = props;
 
-  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults} = offer;
+  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id} = offer;
 
   const reviews = props.reviews;
 
@@ -106,7 +109,8 @@ const OfferPage = (props) => {
                 <ul className="reviews__list">
                   <ReviewList reviews={reviews}/>
                 </ul>
-                <ReviewForm />
+                {authorizationStatus === AuthorizationStatus.AUTH &&
+                  <ReviewForm postReview={postReview} id={id}/>}
               </section>
             </div>
           </div>
@@ -131,6 +135,21 @@ OfferPage.propTypes = {
   offer: PropTypes.object.isRequired,
   offers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  postReview: PropTypes.func.isRequired,
 };
 
-export default OfferPage;
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  userName: USER.userName,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postReview(id, review) {
+    dispatch(fetchReview(id, review));
+  },
+});
+
+export {OfferPage};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
