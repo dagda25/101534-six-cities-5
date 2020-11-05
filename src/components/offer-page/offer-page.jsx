@@ -12,9 +12,9 @@ import {fetchReview} from "../../store/api-actions";
 
 const OfferPage = (props) => {
 
-  const {offers, offer, authorizationStatus, postReview} = props;
+  const {offer, authorizationStatus, postReview, nearByOffers} = props;
 
-  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id} = offer;
+  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id, host, description, type} = offer;
 
   const reviews = props.reviews;
 
@@ -36,9 +36,11 @@ const OfferPage = (props) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>{isPremium}</span>
-              </div>
+              {isPremium &&
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -59,7 +61,7 @@ const OfferPage = (props) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {goods}
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -88,19 +90,16 @@ const OfferPage = (props) => {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                  <div className={host.isPro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {host.name}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
@@ -115,14 +114,14 @@ const OfferPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={[offer]}/>
+            <Map offers={nearByOffers}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={offers}/>
+              <OffersList offers={nearByOffers}/>
             </div>
           </section>
         </div>
@@ -133,15 +132,19 @@ const OfferPage = (props) => {
 
 OfferPage.propTypes = {
   offer: PropTypes.object.isRequired,
-  offers: PropTypes.array.isRequired,
+  host: PropTypes.object.isRequired,
+  nearByOffers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
+const mapStateToProps = ({USER, DATA}) => ({
   authorizationStatus: USER.authorizationStatus,
   userName: USER.userName,
+  nearByOffers: DATA.nearByOffers
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import {fetchOffer, fetchReviews} from "../../store/api-actions";
+import {fetchOffer, fetchReviews, fetchNearBy} from "../../store/api-actions";
 import {store} from "../../index";
 
 const OfferCard = (props) => {
@@ -12,8 +12,9 @@ const OfferCard = (props) => {
 
   const handleClick = (evt) => {
     evt.preventDefault();
-    store.dispatch(fetchReviews(id)).then(
-        store.dispatch(fetchOffer(id)));
+    store.dispatch(fetchReviews(id))
+    .then(store.dispatch(fetchOffer(id)))
+    .then(store.dispatch(fetchNearBy(id)));
   };
 
 

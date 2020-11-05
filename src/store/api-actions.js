@@ -37,7 +37,15 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
 
 export const fetchReviews = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.COMMENTS}/${id}`)
-    .then((data) => dispatch(ActionCreator.getReviews(data.data)))
+    .then(({data}) => dispatch(ActionCreator.getReviews(data)))
+    .catch((err) => {
+      throw err;
+    })
+);
+
+export const fetchNearBy = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}/nearby`)
+    .then((data) => dispatch(ActionCreator.getNearBy(data.data)))
     .catch((err) => {
       throw err;
     })

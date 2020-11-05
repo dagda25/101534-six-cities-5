@@ -8,6 +8,7 @@ export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
   GET_REVIEWS: `GET_REVIEWS`,
+  GET_NEARBY: `GET_NEARBY`,
   POST_REVIEW: `POST_REVIEW`,
 };
 
@@ -26,6 +27,10 @@ export const ActionCreator = {
   }),
   getReviews: (data) => ({
     type: ActionType.GET_REVIEWS,
+    payload: data
+  }),
+  getNearBy: (data) => ({
+    type: ActionType.GET_NEARBY,
     payload: data
   }),
   postReview: (data) => ({

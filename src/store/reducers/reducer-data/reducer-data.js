@@ -8,7 +8,8 @@ const initialState = {
   currentSorting: `Popular`,
   currentOffer: {},
   currentOfferReviews: [],
-  isSortingMenuOpened: false
+  isSortingMenuOpened: false,
+  nearByOffers: [],
 };
 
 export const SortingType = {
@@ -48,6 +49,10 @@ const reducerData = (state = initialState, action) => {
     case ActionType.GET_REVIEWS:
       return extend(state, {
         currentOfferReviews: action.payload,
+      });
+    case ActionType.GET_NEARBY:
+      return extend(state, {
+        nearByOffers: action.payload,
       });
     case ActionType.POST_REVIEW:
       return extend(state, {
