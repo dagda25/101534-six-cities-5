@@ -14,10 +14,13 @@ const OfferCard = (props) => {
     evt.preventDefault();
 
     Promise.all([
-      store.dispatch(fetchReviews(id)),
-      store.dispatch(fetchOffer(id)),
-      store.dispatch(fetchNearBy(id))
-    ]);
+      fetchReviews(id), fetchOffer(id), fetchNearBy(id)
+    ])
+    .then(([reviews, offers, nearByOffers]) => {
+      store.dispatch(offers);
+      store.dispatch(reviews);
+      store.dispatch(nearByOffers);
+    });
 
   };
 
