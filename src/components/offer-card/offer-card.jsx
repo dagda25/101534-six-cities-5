@@ -1,13 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
+import {fetchOffer, fetchReviews, fetchNearBy} from "../../store/api-actions";
+import {store} from "../../index";
 
 const OfferCard = (props) => {
   const {offer, changeActiveCard} = props;
 
   const {title, images, price, type, id, is_premium: isPremium} = offer;
+
+  const handleClick = (evt) => {
+    evt.preventDefault();
+
+    Promise.all([
+      fetchReviews(id), fetchOffer(id), fetchNearBy(id)
+    ])
+    .then(([reviews, offers, nearByOffers]) => {
+      store.dispatch(offers);
+      store.dispatch(reviews);
+      store.dispatch(nearByOffers);
+    });
+
+  };
 
 
   return (
@@ -17,9 +32,9 @@ const OfferCard = (props) => {
           <span> Premium </span>
         </div> : null}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
+        <a href="#" onClick={handleClick}>
           <img className="place-card__image" src={images[0]} width="260" height="200" alt="Place image"/>
-        </Link>
+        </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -41,7 +56,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{title}</Link>
+          <a href="#" onClick={handleClick}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -54,11 +69,15 @@ OfferCard.propTypes = {
   handleMouseOver: PropTypes.func,
   handleMouseOut: PropTypes.func,
   changeActiveCard: PropTypes.func,
+  fetchOffer: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   changeActiveCard(evt) {
     dispatch(ActionCreator.changeActiveCard(evt));
+  },
+  fetchOffer(id) {
+    dispatch(fetchOffer(id));
   },
 });
 
