@@ -12,9 +12,13 @@ const OfferCard = (props) => {
 
   const handleClick = (evt) => {
     evt.preventDefault();
-    store.dispatch(fetchReviews(id))
-    .then(store.dispatch(fetchOffer(id)))
-    .then(store.dispatch(fetchNearBy(id)));
+
+    Promise.all([
+      store.dispatch(fetchReviews(id)),
+      store.dispatch(fetchOffer(id)),
+      store.dispatch(fetchNearBy(id))
+    ]);
+
   };
 
 
