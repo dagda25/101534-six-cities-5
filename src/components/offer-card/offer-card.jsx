@@ -2,13 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import {fetchOffer, fetchReviews, fetchNearBy} from "../../store/api-actions";
+import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import {store} from "../../index";
 
 const OfferCard = (props) => {
   const {offer, changeActiveCard} = props;
 
   const {title, images, price, type, id, is_premium: isPremium} = offer;
+  let {is_favorite: isFavorite} = offer;
+
+  const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -22,11 +25,21 @@ const OfferCard = (props) => {
       store.dispatch(nearByOffers);
     });
 
+    window.scrollTo(0, 0);
+  };
+
+  const handleFavoriteClick = () => {
+    setStatus((prev) => (prev ? 0 : 1));
+
+    store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
+        isFavorite = !isFavorite
+    );
+
   };
 
 
   return (
-    <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseOut={() => changeActiveCard(null)}>
+    <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseLeave={() => changeActiveCard(null)}>
       {isPremium ?
         <div className="place-card__mark">
           <span> Premium </span>
@@ -42,7 +55,7 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button className={status ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`} onClick={handleFavoriteClick} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -78,6 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchOffer(id) {
     dispatch(fetchOffer(id));
+  },
+  fetchFavoriteStatus(id, status) {
+    dispatch(fetchFavoriteStatus(id, status));
   },
 });
 

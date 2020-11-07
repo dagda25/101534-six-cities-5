@@ -11,7 +11,7 @@ import SortingForm from "../sorting-form/sorting-form";
 
 
 const MainPage = (props) => {
-  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, authorizationStatus, userName} = props;
+  const {offersList, changeCity, cities, currentCity, currentCityOffers, currentSorting, changeSorting, authorizationStatus, userName, activeCardID} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -36,7 +36,7 @@ const MainPage = (props) => {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map offers={currentCityOffers}/>
+                  <Map offers={currentCityOffers} activeCardID={activeCardID}/>
                 </section>
               </div>
             </div>
@@ -62,10 +62,11 @@ MainPage.propTypes = {
   currentCityOffers: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   userName: PropTypes.string,
+  activeCardID: PropTypes.number.isRequired,
 
 };
 
-const mapStateToProps = ({DATA, USER}) => ({
+const mapStateToProps = ({DATA, USER, CARD}) => ({
   currentCity: DATA.currentCity,
   offersList: DATA.offersList,
   currentSorting: DATA.currentSorting,
@@ -73,6 +74,7 @@ const mapStateToProps = ({DATA, USER}) => ({
   currentCityOffers: DATA.currentCityOffers,
   authorizationStatus: USER.authorizationStatus,
   userName: USER.userName,
+  activeCardID: CARD.activeCardID,
 });
 
 const mapDispatchToProps = (dispatch) => ({

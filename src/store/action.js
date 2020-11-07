@@ -10,6 +10,8 @@ export const ActionType = {
   GET_REVIEWS: `GET_REVIEWS`,
   GET_NEARBY: `GET_NEARBY`,
   POST_REVIEW: `POST_REVIEW`,
+  GET_FAVORITES: `GET_FAVORITES`,
+  TOGGLE_FAVORITE_STATUS: `TOGGLE_FAVORITE_STATUS`,
 };
 
 export const ActionCreator = {
@@ -44,7 +46,7 @@ export const ActionCreator = {
     } :
       {
         type: ActionType.CHANGE_ACTIVE_CARD,
-        payload: null
+        payload: 0
       };
   },
   changeSorting: (type) => {
@@ -65,5 +67,13 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  getFavorites: (data) => ({
+    type: ActionType.GET_FAVORITES,
+    payload: data
+  }),
+  toggleFavoriteStatus: (data) => ({
+    type: ActionType.TOGGLE_FAVORITE_STATUS,
+    payload: data
   }),
 };

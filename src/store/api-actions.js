@@ -9,6 +9,27 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
+export const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({data}) => {
+      dispatch(ActionCreator.getFavorites(data));
+    })
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
+    .catch((err) => {
+      throw err;
+    })
+);
+
+export const fetchFavoriteStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
+    .then(({data}) => {
+      dispatch(ActionCreator.toggleFavoriteStatus(data.id, data.is_favorite));
+    })
+    .catch((err) => {
+      throw err;
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
