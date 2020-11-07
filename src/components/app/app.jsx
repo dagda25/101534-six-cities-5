@@ -9,11 +9,13 @@ import FavoritesPage from "../favorites-page/favorites-page";
 import OfferPage from "../offer-page/offer-page";
 import {login} from "../../store/api-actions";
 import browserHistory from "../../browser-history";
-import {AppRoute} from "../../utils/const";
+import PrivateRoute from "../private-route/private-route";
+import {Redirect} from "react-router-dom";
+import {AuthorizationStatus, AppRoute} from "../../utils/const";
 
 
 const App = (props) => {
-  const {offers, cities, onSubmit, currentOfferReviews, favorites} = props;
+  const {offers, cities, onSubmit, currentOfferReviews, favorites, authorizationStatus} = props;
 
   return (
     <Router history={browserHistory}>
@@ -27,10 +29,16 @@ const App = (props) => {
             />
           )}
         />
-        <Route exact path={AppRoute.LOGIN}>
-          <LoginPage onSubmit={onSubmit}/>
-        </Route>
-        <Route
+        <Route exact path={AppRoute.LOGIN}
+          render={() => (
+            authorizationStatus === AuthorizationStatus.AUTH
+              ? <Redirect to={AppRoute.ROOT} />
+              :
+              <LoginPage onSubmit={onSubmit}/>
+          )}
+        />
+
+        <PrivateRoute
           exact path={AppRoute.FAVORITES}
           render={() => (
             <FavoritesPage
@@ -63,6 +71,7 @@ App.propTypes = {
   currentCityOffers: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,
   currentOfferReviews: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({DATA, CARD, USER}) => ({

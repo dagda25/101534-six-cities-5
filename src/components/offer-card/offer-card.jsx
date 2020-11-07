@@ -25,6 +25,7 @@ const OfferCard = (props) => {
       store.dispatch(nearByOffers);
     });
 
+    window.scrollTo(0, 0);
   };
 
   const handleFavoriteClick = () => {
@@ -33,11 +34,12 @@ const OfferCard = (props) => {
     store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
         isFavorite = !isFavorite
     );
+
   };
 
 
   return (
-    <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseOut={() => changeActiveCard(null)}>
+    <article className="cities__place-card place-card" data-id={id} onMouseEnter={(evt) => changeActiveCard(evt)} onMouseLeave={() => changeActiveCard(null)}>
       {isPremium ?
         <div className="place-card__mark">
           <span> Premium </span>
