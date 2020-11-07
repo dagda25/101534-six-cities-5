@@ -34,17 +34,11 @@ class Map extends React.PureComponent {
 
 
     offers.forEach((offer) => {
-      if (offer.id === activeCardID) {
-        icon.options.iconUrl = `/img/pin-active.svg`;
-        leaflet
-        .marker([offer.location.latitude, offer.location.longitude], {icon})
-        .addTo(this.map);
-      } else {
-        icon.options.iconUrl = `/img/pin.svg`;
-        leaflet
-        .marker([offer.location.latitude, offer.location.longitude], {icon})
-        .addTo(this.map);
-      }
+      icon.options.iconUrl = offer.id === activeCardID ? `/img/pin-active.svg` : `/img/pin.svg`;
+
+      leaflet
+      .marker([offer.location.latitude, offer.location.longitude], {icon})
+      .addTo(this.map);
     });
   }
 
