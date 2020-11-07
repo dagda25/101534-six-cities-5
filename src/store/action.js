@@ -10,6 +10,7 @@ export const ActionType = {
   GET_REVIEWS: `GET_REVIEWS`,
   GET_NEARBY: `GET_NEARBY`,
   POST_REVIEW: `POST_REVIEW`,
+  GET_FAVORITES: `GET_FAVORITES`,
 };
 
 export const ActionCreator = {
@@ -65,5 +66,9 @@ export const ActionCreator = {
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,
     payload: url,
+  }),
+  getFavorites: (data) => ({
+    type: ActionType.GET_FAVORITES,
+    payload: data
   }),
 };

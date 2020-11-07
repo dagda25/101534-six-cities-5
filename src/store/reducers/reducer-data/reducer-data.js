@@ -10,6 +10,7 @@ const initialState = {
   currentOfferReviews: [],
   isSortingMenuOpened: false,
   nearByOffers: [],
+  favorites: [],
 };
 
 export const SortingType = {
@@ -72,6 +73,10 @@ const reducerData = (state = initialState, action) => {
     case ActionType.TOGGLE_SORTING_MENU:
       return extend(state, {
         isSortingMenuOpened: !state.isSortingMenuOpened
+      });
+    case ActionType.GET_FAVORITES:
+      return extend(state, {
+        favorites: action.payload,
       });
     default:
       return state;

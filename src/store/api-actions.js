@@ -9,6 +9,17 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
+export const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({data}) => {
+      dispatch(ActionCreator.getFavorites(data));
+    })
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
+    .catch((err) => {
+      throw err;
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))

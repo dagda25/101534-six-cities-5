@@ -13,7 +13,7 @@ import {AppRoute} from "../../utils/const";
 
 
 const App = (props) => {
-  const {offers, cities, onSubmit, currentOfferReviews} = props;
+  const {offers, cities, onSubmit, currentOfferReviews, favorites} = props;
 
   return (
     <Router history={browserHistory}>
@@ -34,7 +34,7 @@ const App = (props) => {
           exact path={AppRoute.FAVORITES}
           render={() => (
             <FavoritesPage
-              offers={offers}
+              offers={favorites}
             />
           )}
         />
@@ -57,6 +57,7 @@ const App = (props) => {
 
 App.propTypes = {
   offers: PropTypes.array.isRequired,
+  favorites: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
   currentCityOffers: PropTypes.array.isRequired,
@@ -72,6 +73,7 @@ const mapStateToProps = ({DATA, CARD, USER}) => ({
   currentOfferReviews: DATA.currentOfferReviews,
   offers: DATA.offersList,
   authorizationStatus: USER.authorizationStatus,
+  favorites: DATA.favorites,
 });
 
 const mapDispatchToProps = (dispatch) => ({
