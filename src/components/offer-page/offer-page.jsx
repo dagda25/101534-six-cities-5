@@ -7,20 +7,30 @@ import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
 import {AuthorizationStatus} from "../../utils/const";
 import {connect} from "react-redux";
-import {fetchReview} from "../../store/api-actions";
+import {fetchReview, fetchFavoriteStatus} from "../../store/api-actions";
+import {store} from "../../index";
 
 
 const OfferPage = (props) => {
 
-  const {offer, authorizationStatus, postReview, nearByOffers, activeCardID} = props;
+  const {offer, authorizationStatus, postReview, nearByOffers, activeCardID, userName} = props;
 
   const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id, host, description, type} = offer;
-
+  let {is_favorite: isFavorite} = offer;
+  const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
   const reviews = props.reviews;
+
+  const handleFavoriteClick = () => {
+    setStatus((prev) => (prev ? 0 : 1));
+
+    store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
+        isFavorite = !isFavorite
+    );
+  };
 
   return (
     <React.Fragment>
-      <Header/>
+      <Header authorizationStatus={authorizationStatus} userName={userName}/>
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -45,7 +55,7 @@ const OfferPage = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button className={status ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} onClick={handleFavoriteClick} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -140,6 +150,7 @@ OfferPage.propTypes = {
   type: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,
+  userName: PropTypes.string,
 };
 
 const mapStateToProps = ({USER, DATA, CARD}) => ({

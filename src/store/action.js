@@ -11,6 +11,7 @@ export const ActionType = {
   GET_NEARBY: `GET_NEARBY`,
   POST_REVIEW: `POST_REVIEW`,
   GET_FAVORITES: `GET_FAVORITES`,
+  TOGGLE_FAVORITE_STATUS: `TOGGLE_FAVORITE_STATUS`,
 };
 
 export const ActionCreator = {
@@ -69,6 +70,10 @@ export const ActionCreator = {
   }),
   getFavorites: (data) => ({
     type: ActionType.GET_FAVORITES,
+    payload: data
+  }),
+  toggleFavoriteStatus: (data) => ({
+    type: ActionType.TOGGLE_FAVORITE_STATUS,
     payload: data
   }),
 };

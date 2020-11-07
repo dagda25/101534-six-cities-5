@@ -36,6 +36,10 @@ const sort = (state, sortBy) => {
 
 };
 
+const modify = (state, data) => {
+  return state.favorites.filter((offer) => offer.id !== data);
+};
+
 const reducerData = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_OFFER_LIST:
@@ -77,6 +81,10 @@ const reducerData = (state = initialState, action) => {
     case ActionType.GET_FAVORITES:
       return extend(state, {
         favorites: action.payload,
+      });
+    case ActionType.TOGGLE_FAVORITE_STATUS:
+      return extend(state, {
+        favorites: modify(state, action.payload),
       });
     default:
       return state;

@@ -7,7 +7,7 @@ const FavoritesPage = (props) => {
   const {offers} = props;
 
   const locations = offers.map((offer) => {
-    return offer.location;
+    return offer.city.name;
   });
 
   const filteredLocations = Array.from(new Set(locations));
@@ -33,7 +33,7 @@ const FavoritesPage = (props) => {
                     </div>
                     <div className="favorites__places">
                       {offers.map((offer) => {
-                        return offer.location === location ? <OfferCard offer={offer} key={offer.id}/> : ``;
+                        return offer.city.name === location ? <OfferCard offer={offer} key={offer.id}/> : ``;
                       })}
                     </div>
                   </li>

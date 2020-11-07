@@ -20,6 +20,16 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
     })
 );
 
+export const fetchFavoriteStatus = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
+    .then(({data}) => {
+      dispatch(ActionCreator.toggleFavoriteStatus(data.id, data.is_favorite));
+    })
+    .catch((err) => {
+      throw err;
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
