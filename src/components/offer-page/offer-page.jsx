@@ -12,7 +12,7 @@ import {fetchReview} from "../../store/api-actions";
 
 const OfferPage = (props) => {
 
-  const {offer, authorizationStatus, postReview, nearByOffers} = props;
+  const {offer, authorizationStatus, postReview, nearByOffers, activeCardID} = props;
 
   const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id, host, description, type} = offer;
 
@@ -114,7 +114,7 @@ const OfferPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={nearByOffers}/>
+            <Map offers={nearByOffers} activeCardID={activeCardID}/>
           </section>
         </section>
         <div className="container">
@@ -139,12 +139,14 @@ OfferPage.propTypes = {
   description: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
+  activeCardID: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({USER, DATA}) => ({
+const mapStateToProps = ({USER, DATA, CARD}) => ({
   authorizationStatus: USER.authorizationStatus,
   userName: USER.userName,
-  nearByOffers: DATA.nearByOffers
+  nearByOffers: DATA.nearByOffers,
+  activeCardID: CARD.activeCardID,
 });
 
 const mapDispatchToProps = (dispatch) => ({

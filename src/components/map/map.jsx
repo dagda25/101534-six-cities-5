@@ -9,11 +9,11 @@ class Map extends React.PureComponent {
     this.map = null;
   }
   initMap() {
-    const {offers} = this.props;
+    const {offers, activeCardID} = this.props;
 
     const city = offers[0] ? [offers[0].city.location.latitude, offers[0].city.location.longitude] : [48.85661, 2.351499];
 
-    const icon = leaflet.icon({
+    let icon = leaflet.icon({
       iconUrl: `/img/pin.svg`,
       iconSize: [30, 30]
     });
@@ -34,9 +34,17 @@ class Map extends React.PureComponent {
 
 
     offers.forEach((offer) => {
-      leaflet
-      .marker([offer.location.latitude, offer.location.longitude], {icon})
-      .addTo(this.map);
+      if (offer.id === activeCardID) {
+        icon.options.iconUrl = `/img/pin-active.svg`;
+        leaflet
+        .marker([offer.location.latitude, offer.location.longitude], {icon})
+        .addTo(this.map);
+      } else {
+        icon.options.iconUrl = `/img/pin.svg`;
+        leaflet
+        .marker([offer.location.latitude, offer.location.longitude], {icon})
+        .addTo(this.map);
+      }
     });
   }
 
@@ -60,6 +68,7 @@ class Map extends React.PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.array.isRequired,
+  activeCardID: PropTypes.number.isRequired,
 };
 
 export default Map;

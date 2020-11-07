@@ -44,7 +44,7 @@ export const ActionCreator = {
     } :
       {
         type: ActionType.CHANGE_ACTIVE_CARD,
-        payload: null
+        payload: 0
       };
   },
   changeSorting: (type) => {
