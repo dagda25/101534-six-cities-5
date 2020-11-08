@@ -74,7 +74,7 @@ App.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   currentOfferReviews: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
 };
 
 const mapStateToProps = ({DATA, CARD, USER}) => ({
