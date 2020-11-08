@@ -15,7 +15,7 @@ import {AuthorizationStatus, AppRoute} from "../../utils/const";
 
 
 const App = (props) => {
-  const {offers, cities, onSubmit, currentOfferReviews, favorites, authorizationStatus} = props;
+  const {offers, cities, onSubmit, currentOfferReviews, favorites, authorizationStatus, userName} = props;
 
   return (
     <Router history={browserHistory}>
@@ -43,6 +43,8 @@ const App = (props) => {
           render={() => (
             <FavoritesPage
               offers={favorites}
+              authorizationStatus={authorizationStatus}
+              userName={userName}
             />
           )}
         />
@@ -72,6 +74,7 @@ App.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   currentOfferReviews: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({DATA, CARD, USER}) => ({
@@ -82,6 +85,7 @@ const mapStateToProps = ({DATA, CARD, USER}) => ({
   currentOfferReviews: DATA.currentOfferReviews,
   offers: DATA.offersList,
   authorizationStatus: USER.authorizationStatus,
+  userName: USER.userName,
   favorites: DATA.favorites,
 });
 
