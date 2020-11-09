@@ -1,31 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {extend} from "../../utils/utils";
+import {ReviewLength} from "../../utils/const";
 
 const ReviewForm = (props) => {
 
   const {postReview, id} = props;
 
-  const [comment, setReview] = React.useState({
-    rating: 0,
-    review: 0,
-  });
+  const [rating, setRating] = React.useState(0);
 
-  const {rating, review} = comment;
+  const [text, setText] = React.useState(0);
+
+  const [disabledSubmit, setDisabledSubmit] = React.useState(true);
+
+  const [disabledInput, setDisabledInput] = React.useState(false);
 
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    postReview(id, {review, rating});
+    setDisabledInput(true);
+    postReview(id, {text, rating});
+    setDisabledInput(false);
   };
 
   const handleFieldChange = (evt) => {
-    const {name, value} = evt.target;
-    setReview(extend(comment, {[name]: value}));
+    const {value} = evt.target;
+    setRating(value);
+    setDisabledSubmit(text.length <= ReviewLength.MIN || text.length >= ReviewLength.MAX);
+  };
+
+  const handleTextAreaChange = (evt) => {
+    const {value} = evt.target;
+    setText(value);
+    setDisabledSubmit(value.length <= ReviewLength.MIN || value.length >= ReviewLength.MAX || !rating);
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} disabled="true">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={handleFieldChange}/>
@@ -63,12 +73,12 @@ const ReviewForm = (props) => {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleFieldChange}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" disabled={disabledInput} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextAreaChange}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={disabledSubmit}>Submit</button>
       </div>
     </form>
   );

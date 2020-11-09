@@ -5,10 +5,11 @@ import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
 import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
-import {AuthorizationStatus} from "../../utils/const";
+import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import {store} from "../../index";
+import browserHistory from "../../browser-history";
 
 
 class OfferPage extends React.PureComponent {
@@ -17,7 +18,10 @@ class OfferPage extends React.PureComponent {
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
   }
 
-  handleFavoriteClick(id, status) {
+  handleFavoriteClick(id, status, authorizationStatus) {
+    if (authorizationStatus !== AuthorizationStatus.AUTH) {
+      browserHistory.push(AppRoute.LOGIN);
+    }
     store.dispatch(fetchFavoriteStatus(id, status === true ? 0 : 1)).then(
         status = status === true ? false : true
     );

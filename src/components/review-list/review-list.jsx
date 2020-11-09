@@ -1,8 +1,15 @@
 import React from "react";
+import {Months} from "../../utils/const";
+
 
 const ReviewList = (props) => {
+  const getDate = (date) => {
+    const reviewDate = new Date(date);
+    return `${Months[reviewDate.getMonth()]} ${reviewDate.getFullYear()}`;
+  };
 
-  const {reviews} = props;
+  let {reviews} = props;
+  reviews = reviews.slice(0, 9).sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     reviews.length ?
@@ -27,7 +34,7 @@ const ReviewList = (props) => {
               <p className="reviews__text">
                 {review.comment}
               </p>
-              <time className="reviews__time" dateTime="2019-04-24">{review.date}</time>
+              <time className="reviews__time" dateTime="2019-04-24">{getDate(review.date)}{review.date}</time>
             </div>
           </li>
         );
