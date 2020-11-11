@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {ReviewLength} from "../../utils/const";
+import ErrorMessage from "../error-message/error-message";
+
 
 const ReviewForm = (props) => {
 
@@ -8,18 +10,26 @@ const ReviewForm = (props) => {
 
   const [rating, setRating] = React.useState(0);
 
-  const [text, setText] = React.useState(0);
+  const [text, setText] = React.useState(``);
 
   const [disabledSubmit, setDisabledSubmit] = React.useState(true);
 
   const [disabledInput, setDisabledInput] = React.useState(false);
 
+  const [showErrorMessage, setshowErrorMessage] = React.useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     setDisabledInput(true);
-    postReview(id, {text, rating});
-    setDisabledInput(false);
+    return new Promise(() => {
+      postReview(id, {text, rating});
+    }).then(() => {
+      setText(``);
+      setRating(0);
+      setDisabledInput(false);
+    }).catch(() => {
+      setshowErrorMessage(true);
+    });
   };
 
   const handleFieldChange = (evt) => {
@@ -37,7 +47,7 @@ const ReviewForm = (props) => {
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} disabled="true">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
+      <div className="reviews__rating-form form__rating" data-value={rating}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={handleFieldChange}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -73,13 +83,18 @@ const ReviewForm = (props) => {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" disabled={disabledInput} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextAreaChange}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" disabled={disabledInput} placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextAreaChange} value={text}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={disabledSubmit}>Submit</button>
+
       </div>
+      {
+        showErrorMessage &&
+          <ErrorMessage text={`Something went wrong. Click here to hide this message and try again`} onClick={() => setshowErrorMessage(false)}/>
+      }
     </form>
   );
 };

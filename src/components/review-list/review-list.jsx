@@ -34,7 +34,7 @@ const ReviewList = (props) => {
               <p className="reviews__text">
                 {review.comment}
               </p>
-              <time className="reviews__time" dateTime="2019-04-24">{getDate(review.date)}{review.date}</time>
+              <time className="reviews__time" dateTime="2019-04-24">{getDate(review.date)}</time>
             </div>
           </li>
         );
