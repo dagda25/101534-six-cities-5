@@ -13,6 +13,7 @@ import {ActionCreator} from "./store/action";
 import {AuthorizationStatus} from "./utils/const";
 import {fetchOffersList} from "./store/api-actions";
 import {redirect} from "./middlewares/redirect";
+import ErrorPage from "./components/error-page/error-page";
 
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
@@ -34,4 +35,12 @@ store.dispatch(fetchOffersList()).then(
         document.querySelector(`#root`)
     )
 
+).catch(() => {
+  ReactDOM.render(
+      <Provider store={store}>
+        <ErrorPage/>
+      </Provider>
+      ,
+      document.querySelector(`#root`));
+}
 );

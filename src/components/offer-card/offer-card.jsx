@@ -4,11 +4,13 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import {store} from "../../index";
+import {AuthorizationStatus, AppRoute} from "../../utils/const";
+import browserHistory from "../../browser-history";
 
 const OfferCard = (props) => {
-  const {offer, changeActiveCard} = props;
+  const {offer, changeActiveCard, authorizationStatus} = props;
 
-  const {title, images, price, type, id, is_premium: isPremium} = offer;
+  const {title, images, price, type, id, is_premium: isPremium, rating} = offer;
   let {is_favorite: isFavorite} = offer;
 
   const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
@@ -29,6 +31,9 @@ const OfferCard = (props) => {
   };
 
   const handleFavoriteClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.AUTH) {
+      browserHistory.push(AppRoute.LOGIN);
+    }
     setStatus((prev) => (prev ? 0 : 1));
 
     store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
@@ -64,7 +69,7 @@ const OfferCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `80%`}}></span>
+            <span style={{width: `${Math.round(rating) / 5 * 100}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -83,7 +88,12 @@ OfferCard.propTypes = {
   handleMouseOut: PropTypes.func,
   changeActiveCard: PropTypes.func,
   fetchOffer: PropTypes.func,
+  authorizationStatus: PropTypes.string.isRequired,
 };
+
+const mapStateToProps = ({USER}) => ({
+  userName: USER.userName,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   changeActiveCard(evt) {
@@ -98,4 +108,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);

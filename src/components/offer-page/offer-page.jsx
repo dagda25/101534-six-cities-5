@@ -5,31 +5,52 @@ import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
 import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
-import {AuthorizationStatus} from "../../utils/const";
+import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import {connect} from "react-redux";
-import {fetchReview, fetchFavoriteStatus} from "../../store/api-actions";
+import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import {store} from "../../index";
+import browserHistory from "../../browser-history";
 
 
-const OfferPage = (props) => {
+class OfferPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+  }
 
-  const {offer, authorizationStatus, postReview, nearByOffers, activeCardID, userName} = props;
-
-  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, id, host, description, type} = offer;
-  let {is_favorite: isFavorite} = offer;
-  const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
-  const reviews = props.reviews;
-
-  const handleFavoriteClick = () => {
-    setStatus((prev) => (prev ? 0 : 1));
-
-    store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
-        isFavorite = !isFavorite
+  handleFavoriteClick(id, status, authorizationStatus) {
+    if (authorizationStatus !== AuthorizationStatus.AUTH) {
+      browserHistory.push(AppRoute.LOGIN);
+    }
+    store.dispatch(fetchFavoriteStatus(id, status === true ? 0 : 1)).then(
+        status = status === true ? false : true
     );
-  };
+  }
 
-  return (
-    <React.Fragment>
+  fetch(id) {
+    Promise.all([
+      fetchReviews(id), fetchOffer(id), fetchNearBy(id)
+    ])
+    .then(([reviews, offers, nearByOffers]) => {
+      store.dispatch(offers);
+      store.dispatch(reviews);
+      store.dispatch(nearByOffers);
+    });
+  }
+
+  render() {
+    const {offer, authorizationStatus, postReview, nearByOffers, activeCardID, userName, id} = this.props;
+    if (!offer) {
+      this.fetch(id);
+      return <h1>loading..</h1>;
+    }
+    const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, host, description, type} = offer;
+
+    let {is_favorite: isFavorite} = offer;
+    const reviews = this.props.reviews;
+
+
+    return <React.Fragment>
       <Header authorizationStatus={authorizationStatus} userName={userName}/>
       <main className="page__main page__main--property">
         <section className="property">
@@ -55,7 +76,7 @@ const OfferPage = (props) => {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={status ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} onClick={handleFavoriteClick} type="button">
+                <button className={status ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} onClick={() => this.handleFavoriteClick(id, isFavorite)} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -136,9 +157,10 @@ const OfferPage = (props) => {
           </section>
         </div>
       </main>
-    </React.Fragment>
-  );
-};
+    </React.Fragment>;
+
+  }
+}
 
 OfferPage.propTypes = {
   offer: PropTypes.object.isRequired,
@@ -151,6 +173,7 @@ OfferPage.propTypes = {
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,
   userName: PropTypes.string,
+  id: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({USER, DATA, CARD}) => ({
