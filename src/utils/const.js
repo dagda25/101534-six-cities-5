@@ -55,3 +55,12 @@ export const ReviewLength = {
   MIN: 50,
   MAX: 300
 };
+
+export const cities = [
+  `Paris`,
+  `Cologne`,
+  `Brussels`,
+  `Amsterdam`,
+  `Hamburg`,
+  `Dusseldorf`
+];

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render ErrorMessage Render ErrorMessage 1`] = `
+<div
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "red",
+      "borderRadius": "5px",
+      "color": "white",
+      "marginTop": "5px",
+      "padding": "10px",
+    }
+  }
+>
+  test
+</div>
+`;
