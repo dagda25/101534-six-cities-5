@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import FavoritesPage from "./favorites-page";
+import store from "../../store/store";
+import {Provider} from "react-redux";
 
 const offers = [{
   bedrooms: 3,
@@ -28,7 +30,9 @@ describe(`Render FavoritesPage`, () => {
   it(`Render FavoritesPage`, () => {
     const tree = renderer
       .create(
-          <FavoritesPage offers={offers} authorizationStatus={authorizationStatus} userName={userName}/>
+          <Provider store={store}>
+            <FavoritesPage offers={offers} authorizationStatus={authorizationStatus} userName={userName}/>
+          </Provider>
       )
       .toJSON();
 

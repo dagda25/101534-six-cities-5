@@ -33,7 +33,7 @@ const FavoritesPage = (props) => {
                       </div>
                       <div className="favorites__places">
                         {offers.map((offer) => {
-                          return offer.city.name === location ? <OfferCard offer={offer} key={offer.id}/> : ``;
+                          return offer.city.name === location ? <OfferCard authorizationStatus={authorizationStatus} offer={offer} key={offer.id}/> : ``;
                         })}
                       </div>
                     </li>

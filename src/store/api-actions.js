@@ -72,12 +72,14 @@ export const fetchNearBy = (id) => (dispatch, _getState, api) => (
     })
 );
 
-export const fetchReview = (id, {text, rating}) => (dispatch, _getState, api) => (
+export const fetchReview = (id, {text, rating}, resolve, reject) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${id}`, {comment: text, rating})
     .then((data) => {
       dispatch(ActionCreator.postReview(data.data));
+      resolve();
     })
     .catch((err) => {
+      reject();
       throw err;
     })
 );

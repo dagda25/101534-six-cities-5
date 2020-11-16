@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
-import {store} from "../../index";
+import store from "../../store/store";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import browserHistory from "../../browser-history";
 

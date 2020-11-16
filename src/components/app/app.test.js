@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {App} from "./app";
+import store from "../../store/store";
+import {Provider} from "react-redux";
 
 
 const offers = [{
@@ -41,7 +43,9 @@ describe(`Render App`, () => {
   it(`Render App`, () => {
     const tree = renderer
       .create(
-          <App offers={offers} cities={cities} onSubmit={onSubmit} currentOfferReviews={currentOfferReviews} authorizationStatus={authorizationStatus} userName={userName}/>,
+          <Provider store={store}>
+            <App offers={offers} cities={cities} onSubmit={onSubmit} currentCityOffers={[]} currentOfferReviews={currentOfferReviews} authorizationStatus={authorizationStatus} userName={userName} favorites={[]}/>
+          </Provider>,
           {
             createNodeMock: () => {
               return {};

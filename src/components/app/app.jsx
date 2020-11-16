@@ -68,7 +68,6 @@ const App = (props) => {
 App.propTypes = {
   offers: PropTypes.array.isRequired,
   favorites: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
   cities: PropTypes.array.isRequired,
   currentCityOffers: PropTypes.array.isRequired,
   onSubmit: PropTypes.func.isRequired,

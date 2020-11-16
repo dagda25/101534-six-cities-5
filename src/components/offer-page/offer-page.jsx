@@ -8,7 +8,7 @@ import ReviewList from "../review-list/review-list";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
-import {store} from "../../index";
+import store from "../../store/store";
 import browserHistory from "../../browser-history";
 
 
@@ -135,10 +135,7 @@ class OfferPage extends React.PureComponent {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  <ReviewList reviews={reviews}/>
-                </ul>
+                <ReviewList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                   <ReviewForm postReview={postReview} id={id}/>}
               </section>
@@ -184,8 +181,8 @@ const mapStateToProps = ({USER, DATA, CARD}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  postReview(id, review) {
-    dispatch(fetchReview(id, review));
+  postReview(id, review, resolve, reject) {
+    dispatch(fetchReview(id, review, resolve, reject));
   },
 });
 
