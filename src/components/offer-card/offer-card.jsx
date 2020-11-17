@@ -13,7 +13,7 @@ const OfferCard = (props) => {
   const {title, images, price, type, id, is_premium: isPremium, rating} = offer;
   let {is_favorite: isFavorite} = offer;
 
-  const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
+  const [status, setStatus] = React.useState(0);
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -34,11 +34,33 @@ const OfferCard = (props) => {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    setStatus((prev) => (prev ? 0 : 1));
+    /*console.log("before", status)
+    isFavorite = !isFavorite;
+    setStatus((prev) => {
+      prev = prev ? 0 : 1;
+      console.log("in setstatus",prev)
+    });
+    console.log("after", status)
+    setStatus(1)
+    console.log("end",status)
+    let p = new Promise(() => {
+      setStatus((prev) => {
+        prev = prev ? 0 : 1;
+        console.log("in promise",prev)
+      });
+    });
+    p.then(store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1)));*/
 
-    store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
-        isFavorite = !isFavorite
-    );
+    store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1))
+    /*
+        () => {
+          setStatus((prev) => {
+            prev = prev ? 0 : 1;
+            console.log("in setstatus2",prev)
+          });
+          console.log(isFavorite, status)
+        }
+    );*/
 
   };
 
@@ -60,7 +82,11 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={status ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`} onClick={handleFavoriteClick} type="button">
+          <button
+            className={isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`}
+            onClick={() => handleFavoriteClick() }
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

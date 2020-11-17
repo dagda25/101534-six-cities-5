@@ -16,15 +16,20 @@ class OfferPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+    this.btn = React.createRef();
   }
 
   handleFavoriteClick(id, status, authorizationStatus) {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    store.dispatch(fetchFavoriteStatus(id, status === true ? 0 : 1)).then(
-        status = status === true ? false : true
+    store.dispatch(fetchFavoriteStatus(id, this.isFavorite === true ? 0 : 1)).then(
+        () => {
+          this.isFavorite = !this.isFavorite;
+          this.btn.current.classList.toggle(`property__bookmark-button--active`);
+        }
     );
+
   }
 
   fetch(id) {
@@ -76,7 +81,12 @@ class OfferPage extends React.PureComponent {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={status ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} onClick={() => this.handleFavoriteClick(id, isFavorite)} type="button">
+                <button
+                  className={isFavorite ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`}
+                  onClick={() => this.handleFavoriteClick(id, isFavorite, authorizationStatus)}
+                  type="button"
+                  ref={this.btn}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
