@@ -161,12 +161,9 @@ class OfferPage extends React.PureComponent {
 
 OfferPage.propTypes = {
   offer: PropTypes.object.isRequired,
-  host: PropTypes.object.isRequired,
   nearByOffers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,
   userName: PropTypes.string,

@@ -88,7 +88,7 @@ OfferCard.propTypes = {
   handleMouseOut: PropTypes.func,
   changeActiveCard: PropTypes.func,
   fetchOffer: PropTypes.func,
-  authorizationStatus: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string,
 };
 
 const mapStateToProps = ({USER}) => ({
