@@ -179,7 +179,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /comments/: hotel_id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const questionLoader = fetchReviews();
+    const questionLoader = fetchReviews(1);
 
     apiMock
       .onGet(`${APIRoute.COMMENTS}/1`)
@@ -198,7 +198,7 @@ describe(`Async operation work correctly`, () => {
   it(`Should make a correct API call to /hotels/: hotel_id/nearby`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const questionLoader = fetchNearBy();
+    const questionLoader = fetchNearBy(1);
 
     apiMock
       .onGet(`${APIRoute.HOTELS}/1/nearby`)
