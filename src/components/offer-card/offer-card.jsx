@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
+import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersList} from "../../store/api-actions";
 import store from "../../store/store";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import browserHistory from "../../browser-history";
@@ -12,8 +12,6 @@ const OfferCard = (props) => {
 
   const {title, images, price, type, id, is_premium: isPremium, rating} = offer;
   let {is_favorite: isFavorite} = offer;
-
-  const [status, setStatus] = React.useState(0);
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -30,37 +28,15 @@ const OfferCard = (props) => {
     window.scrollTo(0, 0);
   };
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (evt) => {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    /*console.log("before", status)
-    isFavorite = !isFavorite;
-    setStatus((prev) => {
-      prev = prev ? 0 : 1;
-      console.log("in setstatus",prev)
-    });
-    console.log("after", status)
-    setStatus(1)
-    console.log("end",status)
-    let p = new Promise(() => {
-      setStatus((prev) => {
-        prev = prev ? 0 : 1;
-        console.log("in promise",prev)
-      });
-    });
-    p.then(store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1)));*/
+    evt.currentTarget.classList.toggle(`place-card__bookmark-button--active`);
 
-    store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1))
-    /*
-        () => {
-          setStatus((prev) => {
-            prev = prev ? 0 : 1;
-            console.log("in setstatus2",prev)
-          });
-          console.log(isFavorite, status)
-        }
-    );*/
+    store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1)).then(
+        store.dispatch(fetchOffersList())
+    );
 
   };
 
@@ -84,7 +60,9 @@ const OfferCard = (props) => {
           </div>
           <button
             className={isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`}
-            onClick={() => handleFavoriteClick() }
+            onClick={(evt) => {
+              handleFavoriteClick(evt);
+            }}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">

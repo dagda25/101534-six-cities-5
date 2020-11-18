@@ -36,26 +36,6 @@ const sort = (state, sortBy) => {
 
 };
 
-const modify = (state, data) => {
-  console.log(data)
-  state.offersList = state.offersList.map((offer) => {
-    if (offer.id === data) {
-      offer[`is_favorite`] = offer[`is_favorite`] ? false : true;
-    }
-    return offer;
-  });
-  state.currentCityOffers = state.currentCityOffers.map((offer) => {
-    if (offer.id === data) {
-      offer[`is_favorite`] = offer[`is_favorite`] ? false : true;
-    }
-    return offer;
-  });
-  console.log(state.favorites)
-  state.favorites.filter((offer) => offer.id !== data);
-  console.log(state)
-  return {favorites: state.favorites, offersList: state.offersList, currentCityOffers: state.currentCityOffers};
-};
-
 const reducerData = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.GET_OFFER_LIST:
@@ -100,18 +80,6 @@ const reducerData = (state = initialState, action) => {
       });
     case ActionType.TOGGLE_FAVORITE_STATUS:
       return extend(state, {
-        /*offersList: state.offersList.map((offer) => {
-          if (offer.id === action.payload) {
-            offer[`is_favorite`] = offer[`is_favorite`] ? false : true;
-          }
-          return offer;
-        }),*/
-        currentCityOffers: state.currentCityOffers.map((offer) => {
-          if (offer.id === action.payload) {
-            offer[`is_favorite`] = offer[`is_favorite`] ? false : true;
-          }
-          return offer;
-        }),
         favorites: state.favorites.filter((offer) => offer.id !== action.payload),
       }
       );

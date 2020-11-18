@@ -19,13 +19,13 @@ class OfferPage extends React.PureComponent {
     this.btn = React.createRef();
   }
 
-  handleFavoriteClick(id, status, authorizationStatus) {
+  handleFavoriteClick(id, authorizationStatus, isFavorite) {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    store.dispatch(fetchFavoriteStatus(id, this.isFavorite === true ? 0 : 1)).then(
+    store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? 0 : 1)).then(
         () => {
-          this.isFavorite = !this.isFavorite;
+          store.dispatch(fetchOffer(id));
           this.btn.current.classList.toggle(`property__bookmark-button--active`);
         }
     );
@@ -83,7 +83,7 @@ class OfferPage extends React.PureComponent {
                 </h1>
                 <button
                   className={isFavorite ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`}
-                  onClick={() => this.handleFavoriteClick(id, isFavorite, authorizationStatus)}
+                  onClick={() => this.handleFavoriteClick(id, authorizationStatus, isFavorite)}
                   type="button"
                   ref={this.btn}
                 >
