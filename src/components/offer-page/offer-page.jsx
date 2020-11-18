@@ -22,13 +22,14 @@ class OfferPage extends React.PureComponent {
   handleFavoriteClick(id, authorizationStatus, isFavorite) {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
+    } else {
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? 0 : 1)).then(
+          () => {
+            store.dispatch(fetchOffer(id));
+            this.btn.current.classList.toggle(`property__bookmark-button--active`);
+          }
+      );
     }
-    store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? 0 : 1)).then(
-        () => {
-          store.dispatch(fetchOffer(id));
-          this.btn.current.classList.toggle(`property__bookmark-button--active`);
-        }
-    );
 
   }
 
@@ -177,7 +178,7 @@ OfferPage.propTypes = {
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,
   userName: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({USER, DATA, CARD}) => ({
