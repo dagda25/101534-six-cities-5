@@ -8,12 +8,13 @@ const LoginPage = (props) => {
   const passwordRef = React.createRef();
 
   const handleSubmit = (evt) => {
-
-    evt.preventDefault();
+    if (evt) {
+      evt.preventDefault();
+    }
 
     onSubmit({
-      login: loginRef.current.value,
-      password: passwordRef.current.value,
+      login: loginRef.current ? loginRef.current.value : null,
+      password: passwordRef.current ? passwordRef.current.value : null,
     });
   };
 
