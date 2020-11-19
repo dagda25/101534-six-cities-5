@@ -1,6 +1,10 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import Map from "./map";
+import {mount} from 'enzyme';
+import {configure} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({adapter: new Adapter()});
 
 const offers = [{
   bedrooms: 3,
@@ -25,12 +29,10 @@ const activeCardID = 0;
 
 describe(`Render Map`, () => {
   it(`Render Map`, () => {
-    const tree = renderer
-      .create(
-          <Map offers={offers} activeCardID={activeCardID}/>
-      )
-      .toJSON();
+    const div = global.document.createElement(`div`);
+    global.document.body.appendChild(div);
+    const wrapper = mount(<Map offers={offers} activeCardID={activeCardID}/>, {attachTo: div});
 
-    expect(tree).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
