@@ -15,10 +15,6 @@ export const ActionType = {
 };
 
 export const ActionCreator = {
-  changeCity: () => ({
-    type: ActionType.CHANGE_CITY,
-    payload: event.target.textContent,
-  }),
   getOfferList: (data) => ({
     type: ActionType.GET_OFFER_LIST,
     payload: data
@@ -49,6 +45,10 @@ export const ActionCreator = {
         payload: 0
       };
   },
+  changeCity: () => ({
+    type: ActionType.CHANGE_CITY,
+    payload: event.target.textContent,
+  }),
   changeSorting: (type) => {
     return {
       type: ActionType.CHANGE_SORTING,

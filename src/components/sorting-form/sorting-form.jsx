@@ -39,5 +39,6 @@ SortingForm.propTypes = {
   isMenuOpen: PropTypes.bool.isRequired,
   onToggleClick: PropTypes.func.isRequired,
 };
+export {SortingForm};
 
 export default withToggleMenu(SortingForm);

@@ -8,7 +8,7 @@ import ReviewList from "../review-list/review-list";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
-import {store} from "../../index";
+import store from "../../store/store";
 import browserHistory from "../../browser-history";
 
 
@@ -16,15 +16,21 @@ class OfferPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+    this.btn = React.createRef();
   }
 
-  handleFavoriteClick(id, status, authorizationStatus) {
+  handleFavoriteClick(id, authorizationStatus, isFavorite) {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
+    } else {
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? 0 : 1)).then(
+          () => {
+            store.dispatch(fetchOffer(id));
+            this.btn.current.classList.toggle(`property__bookmark-button--active`);
+          }
+      );
     }
-    store.dispatch(fetchFavoriteStatus(id, status === true ? 0 : 1)).then(
-        status = status === true ? false : true
-    );
+
   }
 
   fetch(id) {
@@ -76,7 +82,12 @@ class OfferPage extends React.PureComponent {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={status ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`} onClick={() => this.handleFavoriteClick(id, isFavorite)} type="button">
+                <button
+                  className={isFavorite ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`}
+                  onClick={() => this.handleFavoriteClick(id, authorizationStatus, isFavorite)}
+                  type="button"
+                  ref={this.btn}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -135,10 +146,7 @@ class OfferPage extends React.PureComponent {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  <ReviewList reviews={reviews}/>
-                </ul>
+                <ReviewList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
                   <ReviewForm postReview={postReview} id={id}/>}
               </section>
@@ -164,16 +172,13 @@ class OfferPage extends React.PureComponent {
 
 OfferPage.propTypes = {
   offer: PropTypes.object.isRequired,
-  host: PropTypes.object.isRequired,
   nearByOffers: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,
   userName: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({USER, DATA, CARD}) => ({
@@ -184,8 +189,8 @@ const mapStateToProps = ({USER, DATA, CARD}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  postReview(id, review) {
-    dispatch(fetchReview(id, review));
+  postReview(id, review, resolve, reject) {
+    dispatch(fetchReview(id, review, resolve, reject));
   },
 });
 

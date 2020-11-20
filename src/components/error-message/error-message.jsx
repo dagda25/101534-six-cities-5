@@ -6,11 +6,9 @@ const ErrorMessage = (props) => {
   const {text, onClick} = props;
 
   return (
-    <React.Fragment>
-      <div style={{color: `white`, backgroundColor: `red`, padding: `10px`, borderRadius: `5px`, marginTop: `5px`}} onClick={onClick}>
-        {text}
-      </div>
-    </React.Fragment>
+    <div style={{color: `white`, backgroundColor: `red`, padding: `10px`, borderRadius: `5px`, marginTop: `5px`}} onClick={onClick}>
+      {text}
+    </div>
   );
 };
 

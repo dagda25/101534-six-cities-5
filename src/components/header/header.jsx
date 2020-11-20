@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchFavorites} from "../../store/api-actions";
-import {store} from "../../index";
+import store from "../../store/store";
 import browserHistory from "../../browser-history";
 
 const Header = (props) => {

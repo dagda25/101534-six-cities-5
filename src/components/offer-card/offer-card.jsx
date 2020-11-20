@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
-import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
-import {store} from "../../index";
+import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersList} from "../../store/api-actions";
+import store from "../../store/store";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
 import browserHistory from "../../browser-history";
 
@@ -12,8 +12,6 @@ const OfferCard = (props) => {
 
   const {title, images, price, type, id, is_premium: isPremium, rating} = offer;
   let {is_favorite: isFavorite} = offer;
-
-  const [status, setStatus] = React.useState(isFavorite ? 1 : 0);
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -30,14 +28,14 @@ const OfferCard = (props) => {
     window.scrollTo(0, 0);
   };
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (evt) => {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    setStatus((prev) => (prev ? 0 : 1));
+    evt.currentTarget.classList.toggle(`place-card__bookmark-button--active`);
 
-    store.dispatch(fetchFavoriteStatus(id, status === 1 ? 0 : 1)).then(
-        isFavorite = !isFavorite
+    store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1)).then(
+        store.dispatch(fetchOffersList())
     );
 
   };
@@ -60,7 +58,13 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={status ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`} onClick={handleFavoriteClick} type="button">
+          <button
+            className={isFavorite ? `place-card__bookmark-button place-card__bookmark-button--active button` : `place-card__bookmark-button button`}
+            onClick={(evt) => {
+              handleFavoriteClick(evt);
+            }}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -88,7 +92,7 @@ OfferCard.propTypes = {
   handleMouseOut: PropTypes.func,
   changeActiveCard: PropTypes.func,
   fetchOffer: PropTypes.func,
-  authorizationStatus: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string,
 };
 
 const mapStateToProps = ({USER}) => ({
