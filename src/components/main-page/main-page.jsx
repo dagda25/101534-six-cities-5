@@ -20,9 +20,7 @@ const MainPage = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <CitiesList cities={cities} changeCity={changeCity} currentCity={currentCity}/>
-            </ul>
+            <CitiesList cities={cities} changeCity={changeCity} currentCity={currentCity}/>
           </section>
         </div>
         {offersList.length ?

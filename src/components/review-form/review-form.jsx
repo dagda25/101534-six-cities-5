@@ -19,7 +19,10 @@ const ReviewForm = (props) => {
   const [showErrorMessage, setshowErrorMessage] = React.useState(false);
 
   const handleSubmit = (evt) => {
-    evt.preventDefault();
+    if (evt) {
+      evt.preventDefault();
+    }
+
     setDisabledInput(true);
     setDisabledSubmit(true);
     return new Promise((resolve, reject) => {
