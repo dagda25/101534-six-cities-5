@@ -50,7 +50,7 @@ const ReviewForm = (props) => {
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} disabled="true">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} disabled={true}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating" data-value={rating}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={handleFieldChange}/>

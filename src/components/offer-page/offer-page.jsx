@@ -133,7 +133,7 @@ class OfferPage extends React.PureComponent {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className={host.isPro ? `property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper` : `property__avatar-wrapper user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={host.avatar_url} width="74" height="74" alt="Host avatar"/>
+                    <img className="property__avatar user__avatar" src="../img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
                     {host.name}
@@ -148,7 +148,7 @@ class OfferPage extends React.PureComponent {
               <section className="property__reviews reviews">
                 <ReviewList reviews={reviews}/>
                 {authorizationStatus === AuthorizationStatus.AUTH &&
-                  <ReviewForm postReview={postReview} id={id}/>}
+                  <ReviewForm postReview={postReview} id={+id}/>}
               </section>
             </div>
           </div>
