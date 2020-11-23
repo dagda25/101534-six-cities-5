@@ -10,7 +10,7 @@ const ReviewList = (props) => {
   };
 
   let {reviews} = props;
-  reviews = reviews.slice(0, 10).sort((a, b) => new Date(b.date) - new Date(a.date));
+  reviews = reviews.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
 
   return (
     <>
