@@ -152,7 +152,7 @@ class OfferPage extends React.PureComponent {
               </section>
             </div>
           </div>
-          <section className="property__map map">
+          <section className="property__map map" style={{backgroundImage: `none`}}>
             <Map offers={nearByOffers} activeCardID={activeCardID}/>
           </section>
         </section>

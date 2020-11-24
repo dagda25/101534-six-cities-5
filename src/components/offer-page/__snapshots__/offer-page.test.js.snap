@@ -255,6 +255,11 @@ Array [
       </div>
       <section
         className="property__map map"
+        style={
+          Object {
+            "backgroundImage": "none",
+          }
+        }
       >
         <map
           activeCardID={0}

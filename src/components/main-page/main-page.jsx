@@ -33,7 +33,7 @@ const MainPage = (props) => {
                 <OffersList offers={currentCityOffers} currentSorting={currentSorting}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map">
+                <section className="cities__map map" style={{backgroundImage: `none`}}>
                   <Map offers={currentCityOffers} activeCardID={activeCardID}/>
                 </section>
               </div>

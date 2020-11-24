@@ -32,9 +32,9 @@ export const fetchFavoriteStatus = (id, status) => (dispatch, _getState, api) =>
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch((err) => {
-      throw err;
+    .then((data) => dispatch(ActionCreator.requireAuthorization(data ? AuthorizationStatus.AUTH : AuthorizationStatus.NO_AUTH, data ? data.data.email : null)))
+    .catch(() => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
     })
 );
 
