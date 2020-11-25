@@ -117,10 +117,10 @@ describe(`Reducer should toggle favorite status correctly`, () => {
       currentOfferReviews: [],
       isSortingMenuOpened: false,
       nearByOffers: [],
-      favorites: [{id: 1}, {id: 2}],
+      favorites: [{id: 1}],
     }, {
       type: ActionType.TOGGLE_FAVORITE_STATUS,
-      payload: 1
+      payload: {id: 2}
     })).toEqual({
       offersList: [],
       currentCityOffers: [],
@@ -130,7 +130,7 @@ describe(`Reducer should toggle favorite status correctly`, () => {
       currentOfferReviews: [],
       isSortingMenuOpened: false,
       nearByOffers: [],
-      favorites: [{id: 2}],
+      favorites: [{id: 1}, {id: 2}],
     });
   });
 }

@@ -36,6 +36,8 @@ const OfferCard = (props) => {
 
     store.dispatch(fetchFavoriteStatus(id, isFavorite ? 0 : 1)).then(
         store.dispatch(fetchOffersList())
+    ).then(
+        isFavorite = isFavorite ? false : true
     );
 
   };

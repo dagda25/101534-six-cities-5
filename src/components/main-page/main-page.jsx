@@ -30,7 +30,7 @@ const MainPage = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentCityOffers.length} place(s) to stay in {currentCity}</b>
                 <SortingForm changeSorting={changeSorting} currentSorting={currentSorting}/>
-                <OffersList offers={currentCityOffers} currentSorting={currentSorting}/>
+                <OffersList offers={currentCityOffers} currentSorting={currentSorting} authorizationStatus={authorizationStatus}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map" style={{backgroundImage: `none`}}>

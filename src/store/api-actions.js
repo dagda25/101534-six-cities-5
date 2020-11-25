@@ -23,7 +23,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
 export const fetchFavoriteStatus = (id, status) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITES}/${id}/${status}`)
     .then(({data}) => {
-      dispatch(ActionCreator.toggleFavoriteStatus(data.id, data.is_favorite));
+      dispatch(ActionCreator.toggleFavoriteStatus(data));
     })
     .catch((err) => {
       throw err;

@@ -23,6 +23,8 @@ const offers = [{
   type: `apartment`,
 }];
 
+const authorizationStatus = `true`;
+
 
 describe(`Render Offers list`, () => {
   it(`Render Offers list`, () => {
@@ -31,6 +33,7 @@ describe(`Render Offers list`, () => {
           <Provider store={store}>
             <OffersList
               offers={offers}
+              authorizationStatus={authorizationStatus}
             />
           </Provider>,
           {
