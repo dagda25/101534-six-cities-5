@@ -64,3 +64,10 @@ export const cities = [
   `Hamburg`,
   `Dusseldorf`
 ];
+
+export const maxReviewCount = 10;
+
+export const favoriteStatus = {
+  OFF: 0,
+  ON: 1
+};

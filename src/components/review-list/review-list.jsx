@@ -1,6 +1,7 @@
 import React from "react";
 import {Months} from "../../utils/const";
 import PropTypes from "prop-types";
+import {maxReviewCount} from "../../utils/const";
 
 
 const ReviewList = (props) => {
@@ -10,7 +11,7 @@ const ReviewList = (props) => {
   };
 
   let {reviews} = props;
-  reviews = reviews.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 10);
+  reviews = reviews.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, maxReviewCount);
 
   return (
     <>

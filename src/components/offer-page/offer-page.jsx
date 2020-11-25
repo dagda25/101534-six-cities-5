@@ -5,7 +5,7 @@ import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
 import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
-import {AuthorizationStatus, AppRoute} from "../../utils/const";
+import {AuthorizationStatus, AppRoute, favoriteStatus} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import store from "../../store/store";
@@ -23,7 +23,7 @@ class OfferPage extends React.PureComponent {
     if (authorizationStatus !== AuthorizationStatus.AUTH) {
       browserHistory.push(AppRoute.LOGIN);
     } else {
-      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? 0 : 1)).then(
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON)).then(
           () => {
             store.dispatch(fetchOffer(id));
             this.btn.current.classList.toggle(`property__bookmark-button--active`);
