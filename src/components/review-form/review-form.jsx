@@ -31,7 +31,10 @@ const ReviewForm = (props) => {
       setText(``);
       setRating(0);
       setDisabledInput(false);
-      setDisabledSubmit(false);
+      const inputs = [...document.querySelectorAll(`input.form__rating-input`)];
+      inputs.forEach((input) => {
+        input.checked = false;
+      });
     }).catch(() => {
       setshowErrorMessage(true);
     });
