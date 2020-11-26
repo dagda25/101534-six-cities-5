@@ -10,10 +10,10 @@ const reviews = [{
   id: 1,
   rating: 4,
   user: {
-    avatarUrl: `img/1.png`,
-    id: 4,
-    isPro: false,
-    name: `Max`
+    "avatar_url": `img/1.png`,
+    "id": 4,
+    "is_pro": false,
+    "name": `Max`
   }
 }];
 

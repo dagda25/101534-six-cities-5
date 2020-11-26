@@ -10,53 +10,45 @@ import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
 import store from "../../store/store";
 import browserHistory from "../../browser-history";
+import {offerPropTypes, reviewPropTypes} from "../../utils/prop-types";
 
+const OfferPage = (props) => {
+  const {offer, authorizationStatus, postReview, nearByOffers, activeCardID, userName, id} = props;
 
-class OfferPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
-    this.btn = React.createRef();
-  }
-
-  handleFavoriteClick(id, authorizationStatus, isFavorite) {
-    if (authorizationStatus !== AuthorizationStatus.AUTH) {
-      browserHistory.push(AppRoute.LOGIN);
-    } else {
-      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON)).then(
-          () => {
-            store.dispatch(fetchOffer(id));
-            this.btn.current.classList.toggle(`property__bookmark-button--active`);
-          }
-      );
-    }
-
-  }
-
-  fetch(id) {
+  const fetch = () => {
     Promise.all([
       fetchReviews(id), fetchOffer(id), fetchNearBy(id)
     ])
-    .then(([reviews, offers, nearByOffers]) => {
+    .then(([reviews, offers, near]) => {
       store.dispatch(offers);
       store.dispatch(reviews);
-      store.dispatch(nearByOffers);
+      store.dispatch(near);
     });
+  };
+
+  if (!offer) {
+    fetch(id);
+    return <h1>loading..</h1>;
   }
 
-  render() {
-    const {offer, authorizationStatus, postReview, nearByOffers, activeCardID, userName, id} = this.props;
-    if (!offer) {
-      this.fetch(id);
-      return <h1>loading..</h1>;
+  const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, host, description, type} = offer;
+  let {is_favorite: isFavorite} = offer;
+  const reviews = props.reviews;
+
+
+  const handleFavoriteClick = (evt) => {
+    if (authorizationStatus !== AuthorizationStatus.AUTH) {
+      browserHistory.push(AppRoute.LOGIN);
+    } else {
+      evt.currentTarget.classList.toggle(`property__bookmark-button--active`);
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON)).then(
+          isFavorite = isFavorite ? false : true
+      );
     }
-    const {title, images, price, rating, is_premium: isPremium, bedrooms, goods, max_adults: adults, host, description, type} = offer;
+  };
 
-    let {is_favorite: isFavorite} = offer;
-    const reviews = this.props.reviews;
-
-
-    return <React.Fragment>
+  return (
+    <React.Fragment>
       <Header authorizationStatus={authorizationStatus} userName={userName}/>
       <main className="page__main page__main--property">
         <section className="property">
@@ -84,9 +76,10 @@ class OfferPage extends React.PureComponent {
                 </h1>
                 <button
                   className={isFavorite ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`}
-                  onClick={() => this.handleFavoriteClick(id, authorizationStatus, isFavorite)}
+                  onClick={(evt) => {
+                    handleFavoriteClick(evt);
+                  }}
                   type="button"
-                  ref={this.btn}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -165,15 +158,15 @@ class OfferPage extends React.PureComponent {
           </section>
         </div>
       </main>
-    </React.Fragment>;
+    </React.Fragment>
+  );
 
-  }
-}
+};
 
 OfferPage.propTypes = {
-  offer: PropTypes.object.isRequired,
-  nearByOffers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
+  offer: offerPropTypes,
+  nearByOffers: PropTypes.arrayOf(offerPropTypes).isRequired,
+  reviews: PropTypes.arrayOf(reviewPropTypes).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   postReview: PropTypes.func.isRequired,
   activeCardID: PropTypes.number.isRequired,

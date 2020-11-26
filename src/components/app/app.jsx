@@ -12,6 +12,7 @@ import browserHistory from "../../browser-history";
 import PrivateRoute from "../private-route/private-route";
 import {Redirect} from "react-router-dom";
 import {AuthorizationStatus, AppRoute} from "../../utils/const";
+import {offerPropTypes, reviewPropTypes} from "../../utils/prop-types";
 
 
 const App = (props) => {
@@ -66,14 +67,14 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.array.isRequired,
-  favorites: PropTypes.array.isRequired,
-  cities: PropTypes.array.isRequired,
-  currentCityOffers: PropTypes.array.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  currentOfferReviews: PropTypes.array.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  userName: PropTypes.string,
+  "offers": PropTypes.arrayOf(offerPropTypes).isRequired,
+  "favorites": PropTypes.arrayOf(offerPropTypes).isRequired,
+  "cities": PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  "currentCityOffers": PropTypes.arrayOf(offerPropTypes).isRequired,
+  "onSubmit": PropTypes.func.isRequired,
+  "currentOfferReviews": PropTypes.arrayOf(reviewPropTypes).isRequired,
+  "authorizationStatus": PropTypes.string.isRequired,
+  "userName": PropTypes.string,
 };
 
 const mapStateToProps = ({DATA, CARD, USER}) => ({

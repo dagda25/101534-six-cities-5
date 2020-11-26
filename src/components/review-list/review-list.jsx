@@ -2,6 +2,7 @@ import React from "react";
 import {Months} from "../../utils/const";
 import PropTypes from "prop-types";
 import {maxReviewCount} from "../../utils/const";
+import {reviewPropTypes} from "../../utils/prop-types";
 
 
 const ReviewList = (props) => {
@@ -50,7 +51,7 @@ const ReviewList = (props) => {
 };
 
 ReviewList.propTypes = {
-  reviews: PropTypes.array.isRequired,
+  reviews: PropTypes.arrayOf(reviewPropTypes).isRequired,
 };
 
 export default ReviewList;

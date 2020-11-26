@@ -282,11 +282,11 @@ Array [
               ],
               "host": Object {
                 "avatarUrl": "img/avatar-angelina.jpg",
-                "id": "25",
+                "id": 25,
                 "isPro": true,
                 "name": "Angelina",
               },
-              "id": "2",
+              "id": 2,
               "images": Array [
                 "https://assets.htmlacademy.ru/intensives/javascript-3/hotel/3.jpg",
               ],

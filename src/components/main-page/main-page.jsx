@@ -8,6 +8,7 @@ import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 import MainEmpty from "../main-empty/main-empty";
 import SortingForm from "../sorting-form/sorting-form";
+import {offerPropTypes} from "../../utils/prop-types";
 
 
 const MainPage = (props) => {
@@ -48,20 +49,18 @@ const MainPage = (props) => {
 
 
 MainPage.propTypes = {
-  offers: PropTypes.array.isRequired,
-  offersList: PropTypes.array.isRequired,
+  offersList: PropTypes.arrayOf(offerPropTypes).isRequired,
   changeCity: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
   currentSorting: PropTypes.string.isRequired,
   changeSorting: PropTypes.func.isRequired,
   isSortingMenuOpened: PropTypes.bool.isRequired,
   toggleSortingMenu: PropTypes.func.isRequired,
-  currentCityOffers: PropTypes.array.isRequired,
+  currentCityOffers: PropTypes.arrayOf(offerPropTypes).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   userName: PropTypes.string,
   activeCardID: PropTypes.number.isRequired,
-
 };
 
 const mapStateToProps = ({DATA, USER, CARD}) => ({

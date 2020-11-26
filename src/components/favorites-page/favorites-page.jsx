@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
 import Header from "../header/header";
+import {offerPropTypes} from "../../utils/prop-types";
 
 const FavoritesPage = (props) => {
   const {offers, authorizationStatus, userName} = props;
@@ -66,17 +67,7 @@ const FavoritesPage = (props) => {
 };
 
 FavoritesPage.propTypes = {
-  offer: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    type: PropTypes.string.isRequired,
-    mark: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    location: PropTypes.string.isRequired,
-  }),
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerPropTypes).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   userName: PropTypes.string,
 };

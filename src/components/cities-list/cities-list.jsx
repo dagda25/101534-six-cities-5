@@ -23,7 +23,7 @@ const CitiesList = (props) => {
 
 CitiesList.propTypes = {
   changeCity: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentCity: PropTypes.string.isRequired,
 };
 

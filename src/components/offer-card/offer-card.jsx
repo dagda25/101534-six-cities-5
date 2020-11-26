@@ -6,6 +6,7 @@ import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersL
 import store from "../../store/store";
 import {AuthorizationStatus, AppRoute, favoriteStatus} from "../../utils/const";
 import browserHistory from "../../browser-history";
+import {offerPropTypes} from "../../utils/prop-types";
 
 const OfferCard = (props) => {
   const {offer, changeActiveCard, authorizationStatus} = props;
@@ -89,7 +90,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes.object,
+  offer: offerPropTypes,
   handleMouseOver: PropTypes.func,
   handleMouseOut: PropTypes.func,
   changeActiveCard: PropTypes.func,

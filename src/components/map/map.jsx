@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import '../../../node_modules/leaflet/dist/leaflet.css';
+import {offerPropTypes} from "../../utils/prop-types";
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -74,9 +75,9 @@ class Map extends React.PureComponent {
 }
 
 Map.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerPropTypes).isRequired,
   activeCardID: PropTypes.number.isRequired,
-  currentOffer: PropTypes.object,
+  currentOffer: offerPropTypes,
 };
 
 export default Map;

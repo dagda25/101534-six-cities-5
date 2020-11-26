@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import OfferCard from "../offer-card/offer-card";
+import {offerPropTypes} from "../../utils/prop-types";
 
 const OffersList = (props) => {
   const {offers, authorizationStatus} = props;
@@ -15,7 +16,7 @@ const OffersList = (props) => {
 };
 
 OffersList.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerPropTypes).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
