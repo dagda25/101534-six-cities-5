@@ -56,6 +56,7 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
     })
 );
 
+
 export const fetchReviews = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.getReviews(data)))

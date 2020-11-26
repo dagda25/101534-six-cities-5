@@ -9,7 +9,7 @@ import browserHistory from "../../browser-history";
 import {offerPropTypes} from "../../utils/prop-types";
 
 const OfferCard = (props) => {
-  const {offer, changeActiveCard, authorizationStatus} = props;
+  const {offer, changeActiveCard, authorizationStatus, parentId} = props;
 
   const {title, images, price, type, id, is_premium: isPremium, rating} = offer;
   let {is_favorite: isFavorite} = offer;
@@ -36,11 +36,15 @@ const OfferCard = (props) => {
     evt.currentTarget.classList.toggle(`place-card__bookmark-button--active`);
 
     store.dispatch(fetchFavoriteStatus(id, isFavorite ? favoriteStatus.OFF : favoriteStatus.ON)).then(
-        store.dispatch(fetchOffersList())
+        () => {
+          store.dispatch(fetchOffersList());
+          if (parentId) {
+            store.dispatch(fetchNearBy(parentId));
+          }
+        }
     ).then(
         isFavorite = isFavorite ? false : true
     );
-
   };
 
 
@@ -96,6 +100,7 @@ OfferCard.propTypes = {
   changeActiveCard: PropTypes.func,
   fetchOffer: PropTypes.func,
   authorizationStatus: PropTypes.string,
+  parentId: PropTypes.string
 };
 
 const mapStateToProps = ({USER}) => ({

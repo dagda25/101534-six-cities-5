@@ -7,7 +7,7 @@ import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
 import {AuthorizationStatus, AppRoute, favoriteStatus} from "../../utils/const";
 import {connect} from "react-redux";
-import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus} from "../../store/api-actions";
+import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersList} from "../../store/api-actions";
 import store from "../../store/store";
 import browserHistory from "../../browser-history";
 import {offerPropTypes, reviewPropTypes} from "../../utils/prop-types";
@@ -41,9 +41,13 @@ const OfferPage = (props) => {
       browserHistory.push(AppRoute.LOGIN);
     } else {
       evt.currentTarget.classList.toggle(`property__bookmark-button--active`);
-      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON)).then(
-          isFavorite = isFavorite ? false : true
-      );
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON))
+      .then(
+          () => {
+            store.dispatch(fetchOffersList());
+            store.dispatch(fetchOffer(id));
+            store.dispatch(fetchNearBy(id));
+          });
     }
   };
 
@@ -78,6 +82,7 @@ const OfferPage = (props) => {
                   className={isFavorite ? `property__bookmark-button property__bookmark-button--active button` : `property__bookmark-button button`}
                   onClick={(evt) => {
                     handleFavoriteClick(evt);
+                    isFavorite = isFavorite ? false : true;
                   }}
                   type="button"
                 >
@@ -153,7 +158,7 @@ const OfferPage = (props) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={nearByOffers} authorizationStatus={authorizationStatus}/>
+              <OffersList offers={nearByOffers} authorizationStatus={authorizationStatus} parentId={id}/>
             </div>
           </section>
         </div>

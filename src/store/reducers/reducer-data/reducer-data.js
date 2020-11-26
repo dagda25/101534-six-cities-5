@@ -90,7 +90,7 @@ const reducerData = (state = initialState, action) => {
       });
     case ActionType.TOGGLE_FAVORITE_STATUS:
       return extend(state, {
-        favorites: modify(state, action.payload)
+        favorites: modify(state, action.payload),
       }
       );
     default:
