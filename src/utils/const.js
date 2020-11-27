@@ -65,9 +65,9 @@ export const cities = [
   `Dusseldorf`
 ];
 
-export const maxReviewCount = 10;
+export const MAX_REVIEW_COUNT = 10;
 
-export const favoriteStatus = {
+export const FavoriteStatus = {
   OFF: 0,
   ON: 1
 };

@@ -5,7 +5,7 @@ import ReviewForm from "../review-form/review-form";
 import Header from "../header/header";
 import Map from "../map/map";
 import ReviewList from "../review-list/review-list";
-import {AuthorizationStatus, AppRoute, favoriteStatus} from "../../utils/const";
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from "../../utils/const";
 import {connect} from "react-redux";
 import {fetchOffer, fetchReview, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersList} from "../../store/api-actions";
 import store from "../../store/store";
@@ -41,7 +41,7 @@ const OfferPage = (props) => {
       browserHistory.push(AppRoute.LOGIN);
     } else {
       evt.currentTarget.classList.toggle(`property__bookmark-button--active`);
-      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? favoriteStatus.OFF : favoriteStatus.ON))
+      store.dispatch(fetchFavoriteStatus(id, isFavorite === true ? FavoriteStatus.OFF : FavoriteStatus.ON))
       .then(
           () => {
             store.dispatch(fetchOffersList());

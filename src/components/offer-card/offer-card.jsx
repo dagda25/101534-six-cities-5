@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
 import {fetchOffer, fetchReviews, fetchNearBy, fetchFavoriteStatus, fetchOffersList} from "../../store/api-actions";
 import store from "../../store/store";
-import {AuthorizationStatus, AppRoute, favoriteStatus} from "../../utils/const";
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from "../../utils/const";
 import browserHistory from "../../browser-history";
 import {offerPropTypes} from "../../utils/prop-types";
 
@@ -35,7 +35,7 @@ const OfferCard = (props) => {
     }
     evt.currentTarget.classList.toggle(`place-card__bookmark-button--active`);
 
-    store.dispatch(fetchFavoriteStatus(id, isFavorite ? favoriteStatus.OFF : favoriteStatus.ON)).then(
+    store.dispatch(fetchFavoriteStatus(id, isFavorite ? FavoriteStatus.OFF : FavoriteStatus.ON)).then(
         () => {
           store.dispatch(fetchOffersList());
           if (parentId) {
